@@ -1,0 +1,45 @@
+{
+  "name": "rainbowflame",
+  "version": "0.0.1",
+  "description": "A simple Node app built on Express, instantly up and running.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "ejs": "^3.0.2",
+    "discord.js": "^12.1.1",
+    "node-fetch": "^2.6.0",
+    "btoa": "^1.2.1",
+    "express-session": "^1.16.1",
+    "ffmpeg": "^0.0.4",
+    "ytdl-core": "^2.0.1",
+    "yt-search": "^1.1.2",
+    "node-opus": "^0.3.2",
+    "@discordjs/opus": "^0.1.0",
+    "zlib-sync": "^0.1.6",
+    "erlpack": "^0.1.3",
+    "sodium": "^3.0.2",
+    "bufferutil": "^4.0.1",
+    "utf-8-validate": "^5.0.2",
+    "endb": "^0.21.7",
+    "sql": "^0.78.0",
+    "sqlite3": "^4.1.1",
+    "axios": "^0.19.2",
+    "memejs": "^1.2.3",
+    "yandex-translate": "^2.1.3"
+  },
+  "engines": {
+    "node": "12.x"
+  },
+  "repository": {
+    "url": "https://glitch.com/edit/#!/rainbowflame"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "glitch",
+    "express"
+  ]
+}

@@ -1,0 +1,309 @@
+<head>
+    <meta charset="utf-8">
+    <title>RainbowFlame | <%- title %></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A cool thing made with Glitch">
+    <link id="favicon" rel="icon" href="https://cdn.glitch.com/be7c572c-a86e-4178-a8a9-59282936bcff%2FFavicon.png?v=1586586518449" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+  
+  <style>
+    :root {
+      font: 16px/1.2 monospace;
+      --background-color: #e5e9f0;
+      --text-primary: #2E3440;
+    }
+    
+    body {
+      background-color: var(--background-color);
+      color: var(--text-primary);
+      font-family: monospace;
+      margin: 0 8rem;
+    }
+    
+    nav {
+      display: flex;
+      flex-direction: row;
+      margin: 2rem 0;
+      justify-content: space-between;
+      align-items: center;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      font-family: monospace;
+    }
+    
+    .logo {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      font-family: monospace;
+    }
+    
+    .rainbowText {
+/*       text-decoration: underline; */
+      font-weight: 700;
+      background-image: url('https://cdn.glitch.com/be7c572c-a86e-4178-a8a9-59282936bcff%2FSeamlessRainbow.svg?v=1586773604945');   
+      background-size: contain;
+/*       background-attachment: fixed; */
+      background-position: center;
+      background-repeat: repeat;
+/*       background-size: cover; */
+      -webkit-background-clip: text;
+      -moz-background-clip: text; 
+      background-clip: text;
+      color: transparent;
+      -webkit-text-stroke: 0.5px black;
+      -moz-text-stroke: 0.5px black;
+      text-stroke: 0.5px black;
+      font-family: monospace;
+    } 
+    
+    .boldText {
+      font-weight: 700;
+    }
+    
+/*    .flameText { 
+      font-weight: 700;
+      font-size: 2rem;
+      background-image: linear-gradient(to top, #FF7D7D, #FFFF7D);
+      background-color: var(--text-primary);
+      -webkit-background-clip: text;
+      -moz-background-clip: text; 
+      background-clip: text;
+      color: transparent;
+    }  */
+    
+    .logo-img {
+      width: 5rem;
+      height: 5rem;
+      margin: 0 1rem;
+    }
+    
+    .nav-items {
+      list-style: none;
+      display: flex;
+      felx-direction: row;
+      font-family: monospace;
+    }
+    
+    
+    .nav-items a {
+      color: var(--text-primary);
+      text-decoration: none;
+      text-transform: uppercase;
+      margin: 0 1rem;
+    }
+    
+    
+    /* main section */
+    
+    
+    section {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1rem 0;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      font-family:monospace;
+    }
+    
+    section h1 {
+      font-weight: 600;
+      font-family: monospace;
+    }
+    
+    section img {
+      width: 40vw;
+      height: auto;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    
+    .rainbowBtn {
+      border: none;
+      /*background: #6C63FF; */
+      background-image: url('https://cdn.glitch.com/be7c572c-a86e-4178-a8a9-59282936bcff%2FSeamlessRainbow.svg?v=1586773604945'); 
+      background-size: contain;
+      background-position: center;
+/*       background-attachment: fixed; */
+      background-repeat: repeat;
+/*       background-size: cover; */
+      padding: 0.4rem;
+      font-size: 1rem;
+      border-radius: 0.2rem;
+      font-weight: 700;
+      margin: 2rem 0;
+      color: inherit;
+      border-color: black;
+      border-style: solid;
+      border-width: 1px;
+    }
+    
+    .rainbowBtn:hover {
+      color: white;
+      -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+      -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+      box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+      transition: 350ms ease;
+      animation: color-rotate 2.5s;
+      animation-iteration-count: infinite; 
+      animation-direction: alternate;
+    }
+    .section {
+/*       position: absolute;
+      bottom: -100px; */
+    }
+    
+     p {
+      font-size: 20px;
+      width: 88v;
+       font-family: monospace;
+    }
+    
+    h3 {
+      font-family: monospace;
+    }
+    
+    input {
+      border-radius: 5px;
+      border-width: 1px;
+      padding: 0 5px;
+      border: none;
+      height: 40px;
+     -webkit-border-radius:5px;
+     -moz-border-radius:5px;
+     border-radius:5px;
+     -webkit-box-shadow:0 0 5px #666 inset;
+     -moz-box-shadow:0 0 5px #666 inset;
+     box-shadow:0 0 5px #666 inset;
+       
+    }
+    
+    input:focus { outline:none; }
+    
+  
+    
+    center, .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .spacer {
+      height: 100px;
+      background-color: transparent;
+    }
+    .small-spacer {
+      height: 25px;
+      background-color: transparent;
+    }
+    
+   @keyframes color-rotate {
+    from {
+        filter: hue-rotate(0deg);
+    }
+    to {
+        filter: hue-rotate(360deg);
+    }
+}
+    
+.logo-img:hover {
+   animation: color-rotate 2.5s;
+  animation-iteration-count: infinite; 
+  animation-direction: alternate;
+  cursor: pointer;
+    }
+    
+    /* Command Accordian */
+    .container {
+  width: 80%;
+  max-width: 600px;
+  margin: 50px auto;
+}
+ 
+button.accordion {
+  width: 100%;
+ background-image: url('https://cdn.glitch.com/be7c572c-a86e-4178-a8a9-59282936bcff%2FSeamlessRainbow.svg?v=1586773604945'); 
+      background-size: contain;
+      background-position: center;
+/*       background-attachment: fixed; */
+      background-repeat: repeat;
+  border: none;
+  outline: none;
+  text-align: left;
+  padding: 15px 20px;
+  font-size: 18px;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.2s linear;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  font-weight: 700;
+  
+  margin-top: 2rem;
+}
+ 
+button.accordion:after {
+  content: '\f055';
+  font-family: "fontawesome";
+  font-size: 14px;
+  float: right;
+	
+}
+ 
+button.accordion.is-open:after {
+  content: '\f056';
+}
+ 
+button.accordion:hover, button.accordion.is-open {
+  background-color: #ddd;
+}
+ 
+.accordion-content {
+  background-color: white;
+  border-left: 1px solid whitesmoke;
+  border-right: 1px solid whitesmoke;
+  padding: 0 20px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-in-out;
+  
+}
+    
+    .accordion-content h5 {
+      margin-top: 1rem;
+    }
+    
+    .dashboardOption {
+      width: 20rem;
+      height: auto;
+      background-color: white;
+      border-size: 1px;
+      border-color: #FF9AA2;
+      
+      display: flex;
+      flex-direction: column;
+
+      text-align: center;;
+      
+      padding: 1rem;
+      border-radius: 10px;
+    }
+  </style>
+
+  
+</head>

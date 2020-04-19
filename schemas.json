@@ -1,0 +1,41 @@
+{
+  "guild": {
+    "prefix": {
+      "array": true,
+      "type": "string",
+      "default": [],
+      "modifiable": true
+    },
+    "welcomeMessages": {
+      "array": true,
+      "type": "string",
+      "default": ["{tag} is too lit, please nerf."],
+      "modifiable": true
+    },
+    "leaveMessages": {
+      "array": true,
+      "type": "string",
+      "default": ["Aw man, {tag}'s gone."],
+      "modifiable": true
+    },
+    "memberLogs": {
+      "type": "channel",
+      "default": "",
+      "modifiable": true
+    }
+  },
+  "users": {
+    "bank": {
+      "type": "int",
+      "default": "0",
+      "modifiable": false
+    }
+  },
+  "members": {
+    "wallet": {
+      "type": "int",
+      "default": "0",
+      "modifiable": false
+    }
+  }
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <%- include("layouts/head", { title: "Home" }) %>
+  <body>
+    <%- include("layouts/navbar") %>
+    <div class="main">
+      <section>
+        <div>
+          <h1> Meet <span class="rainbowText">Rainbow</span> Flame </h1>
+
+          <h3> Your go-to option when it comes to discord bots! </h3>
+
+          <button class="rainbowBtn" name="bot-invite"> Invite Me Now! </button>
+        </div>
+        <div>
+          <img src='https://cdn.glitch.com/be7c572c-a86e-4178-a8a9-59282936bcff%2FRoboPromo.png?v=1586591883263' alt='promoImg'/>
+        </div>
+      </section>
+      
+      <div class="spacer"></div>
+      
+      <center>
+        <h1 class="section">
+          <span class="rainbowText">Who Are We?</span>
+          <div class="small-spacer"></div>
+          <p>
+            We are a group of like-minded developers who are aspiring to make useful and benefitial discord bots for you.<br>
+            We want to create and test different kinds of bots so that we, as developers can give our users a
+            seemingly perfect experience without encountering any issues A.K.A glitches.
+          </p>
+        </h1>
+      </center>
+      
+      <div class="spacer"></div>
+      
+      <center>
+        <h1 class="section"> 
+          <span class="rainbowText">
+           Join For Spicy Updates
+          </span>
+        </h1>
+      </center>
+      <section>
+        <div class="section">
+          <input type="text" name="name" placeholder="Name" style="width: 28vw;" required>
+          <input type="text" name="email" placeholder="E-mail" style="width: 28vw;" required>
+        </div>
+        <button class="rainbowBtn" name="bot-invite" style="width: 13vw;">Submit</button> 
+      </section>
+
+      <div class="spacer"></div>
+      <section>
+        <div class="center">
+          <h4 class="rainbowText">&copy; Quacky Universe 2020</h4>
+        </div>
+        <div class="center">
+          <h4 class="rainbowText">Sphinx Bots&trade;</h4>
+        </div>
+      </section>
+      <div class="small-spacer"></div>
+    </div>
+    
+    <script>
+/** code by webdevtrick ( https://webdevtrick.com ) **/
+var accordions = document.getElementsByClassName("accordion");
+ 
+for (var i = 0; i < accordions.length; i++) {
+  accordions[i].onclick = function() {
+    this.classList.toggle('is-open');
+ 
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight) {
+      // accordion is currently open, so close it
+      content.style.maxHeight = null;
+    } else {
+      // accordion is currently closed, so open it
+      content.style.maxHeight = content.scrollHeight + "px";
+    }
+  }
+}
+    console.log("Well Hellow there");
+  </script>
+  </body>
+</html>
