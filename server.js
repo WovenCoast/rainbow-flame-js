@@ -1,3 +1,4 @@
+require('dotenv').config();
 class Util {
   constructor(client) {
     this.client = client;
@@ -49,7 +50,7 @@ class DB {
   constructor(client, schema, options) {
     this.types = {
       string: (client, arg) => arg.toString(),
-      int: (client, arg) => !isNaN(arg) ?  parseInt(arg) : null,
+      int: (client, arg) => !isNaN(arg) ? parseInt(arg) : null,
       float: (client, arg) => !isNaN(arg) ? parseFloat(arg) : null,
       channel: (client, arg) => client.channels.cache.has(arg.replace(removePunctuation, "")) ? client.channels.cache.get(arg.replace(removePunctuation, "")) : null,
       role: (client, arg) => client.guilds.cache.some(guild => Array.from(guild.roles.cache).some(role => role.id === arg.replace(removePunctuation, ""))).roles.cache.get(arg.replace(removePunctuation, "")) ? client.guilds.cache.find(guild => Array.from(guild.roles.cache).some(role => role.id === arg.replace(removePunctuation, ""))).roles.cache.get(arg.replace(removePunctuation, "")) : null
@@ -96,7 +97,7 @@ client.templates = {
   "user": (member) => member.user.tag,
   "discriminator": (member) => member.user.discriminator
 }
-const colorScheme = ['#FF9AA2', '#FFB7B2',  '#FFDAC1', '#E2F0CB',  '#B5EAD7', '#C7CEEA'];
+const colorScheme = ['#FF9AA2', '#FFB7B2', '#FFDAC1', '#E2F0CB', '#B5EAD7', '#C7CEEA'];
 client.colors = {
   info: "#92DFF3",
   error: colorScheme[0],
@@ -146,7 +147,6 @@ fs.readdirSync(path.join(__dirname, "./events")).forEach(evt => {
   });
 })
 
-// UniCoin
 client.login(process.env.DISCORD_TOKEN);
 const express = require("express");
 const fetch = require("node-fetch");
@@ -204,7 +204,7 @@ app.get("/api/discord/login", (req, res) => {
   } else {
     res.redirect(
       `https://discordapp.com/api/oauth2/authorize?client_id=${
-        process.env.CLIENT_ID
+      process.env.CLIENT_ID
       }&scope=${encodeURIComponent(
         "identify email guilds"
       )}&response_type=code&redirect_uri=${encodeURIComponent(
