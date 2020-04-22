@@ -105,3 +105,6 @@ dist
 
 # Data storage
 .data/
+
+#Jetbrains IDES
+.idea/

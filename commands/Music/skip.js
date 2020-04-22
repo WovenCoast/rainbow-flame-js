@@ -1,6 +1,6 @@
 module.exports = {
   name: "skip",
-  aliases: [],
+  aliases: ["next"],
   desc: "Skip a playback song",
   async exec (client, message, args) {
     const serverQueue = client.queue.get(message.guild.id);
