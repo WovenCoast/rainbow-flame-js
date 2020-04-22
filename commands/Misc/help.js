@@ -63,7 +63,7 @@ module.exports = {
         }
         embed.addField(
           "**Aliases**:",
-          command.aliases.map(alias => `\`${alias}\``).join(", ")
+          command.aliases.map(alias => `\`${alias}\``).join(", ") || "None"
         );
         embed.addField(
           "**Usage**:",
