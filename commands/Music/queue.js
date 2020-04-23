@@ -14,7 +14,7 @@ module.exports = {
       if ((serverQueue.songs.length / 5) < page) throw new Error(`Cannot view page ${page} from ${client.utils.pluralify(serverQueue.songs.length / 5, "valid page")}!`);
       songs = serverQueue.songs.slice((page - 1) * 5, page * 5);
     }
-    return message.channel.send(new Discord.MessageEmbed().setTimestamp().setColor(client.colors.info).setAuthor(`${message.author.tag} | Queue`, message.author.displayAvatarURL()).setTitle(`Now playing: ${parseSongName(serverQueue.songs[0].title, serverQueue.songs[0].author)}`).setDescription(songs.map((song, index) => `**${(page * 5) + (index + 2)}**: ${parseSongName(song.title, song.author)}`)).setFooter(`Page ${page} of ${Math.round(serverQueue.songs.length / 5)}`));
+    return message.channel.send(new Discord.MessageEmbed().setTimestamp().setColor(client.colors.info).setAuthor(`${message.author.tag} | Queue`, message.author.displayAvatarURL()).setTitle(`Now playing: ${parseSongName(serverQueue.songs[0].title, serverQueue.songs[0].author)}`).setDescription(songs.map((song, index) => `**${((page - 1) * 5) + (index + 2)}**: ${parseSongName(song.title, song.author)}`)).setFooter(`Page ${page} of ${Math.round(serverQueue.songs.length / 5)}`));
   }
 }
 function parseSongName(title, author) {
