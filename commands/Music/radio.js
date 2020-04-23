@@ -91,6 +91,6 @@ async function addSongs(client, message, songs) {
 		const res = await message.guild.music.searchSongs(s, message.member);
 		message.guild.music.songs.push(res[0]);
 	});
-	message.channel.music.loop = "shuffleall";
+	message.guild.music.loop = "shuffleall";
 	message.channel.send(`:white_check_mark: Successfully added the playlist! Check the songs using \`${message.prefix}queue\``);
 }
