@@ -8,15 +8,15 @@ module.exports = {
     const serverQueue = client.queue.get(message.guild.id);
     if (!serverQueue) throw new Error("This command only works when I'm in a voice channel, try using the `play` command!");
     let songs = serverQueue.songs;
+    let page = 1;
     if (serverQueue.songs.length > 5) {
-      let page = 1;
       if (args[0] && !isNaN(args[0])) page = parseInt(args[0]);
       if ((serverQueue.songs.length / 5) < page) throw new Error(`Cannot view page ${page} from ${client.utils.pluralify(serverQueue.songs.length / 5, "valid page")}!`);
       songs = serverQueue.songs.slice((page - 1) * 5, page * 5);
     }
-    return message.channel.send(new Discord.MessageEmbed().setTimestamp().setColor(client.colors.info).setAuthor(`${message.author.tag} | Queue`, message.author.displayAvatarURL()).setTitle(`Now playing: ${parseSongName(songs[0].title, songs[0].author)}`).setDescription(songs.slice(1).map((song, index) => `**${index + 2}**: ${parseSongName(song.title, song.author)}`)));
+    return message.channel.send(new Discord.MessageEmbed().setTimestamp().setColor(client.colors.info).setAuthor(`${message.author.tag} | Queue`, message.author.displayAvatarURL()).setTitle(`Now playing: ${parseSongName(songs[0].title, songs[0].author)}`).setDescription(songs.slice(1).map((song, index) => `**${index + 2}**: ${parseSongName(song.title, song.author)}`)).setFooter(serverQueue.songs.length > 5 ? `Page ${page} of ${Math.round(serverQueue.songs.length / 5)}` : `Page 1 of 1`));
   }
 }
 function parseSongName(title, author) {
-  return title.includes(author) ? title.replace(author,`**${author}**`) : `**${title}** by *${author}*` 
+  return title.includes(author) ? title.replace(author, `**${author}**`) : `**${title}** by *${author}*`
 }
