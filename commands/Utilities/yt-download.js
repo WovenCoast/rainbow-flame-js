@@ -1,6 +1,6 @@
 const search = require('yt-search');
 const ytdl = require("ytdl-core");
-const tinyurl = require('tiny-url');
+const tinyurl = require('tinyurl');
 
 module.exports = {
 	name: "yt-download",
