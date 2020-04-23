@@ -52,15 +52,13 @@ module.exports = {
 
       const questionRes = await awaitMessage(
         message,
-        m => m.content.trim() !== ""
+        m => m.content.trim() !== "" && m.author.id === message.author.id
       );
-      if (cancelKeywords.includes(questionRes.content.toLowerCase())) {
-
+      if (cancelKeywords.includes(questionRes.content.toLowerCase().trim())) {
         questionMsg.delete();
         return message.channel.send(`Aborted`);
       }
       question = questionRes.content.trim();
-
       questionMsg.delete();
       questionRes.delete();
     }
@@ -84,18 +82,15 @@ module.exports = {
       m =>
         !isNaN(m.content) &&
         parseInt(m.content) < reactions.length &&
-        parseInt(m.content) > 0
+        parseInt(m.content) > 0 && m.author.id === message.author.id
     );
-    if (cancelKeywords.includes(amountRes.content.toLowerCase())) {
-
+    if (cancelKeywords.includes(amountRes.content.toLowerCase().trim())) {
       amountMsg.delete();
       return message.channel.send(`Aborted`);
     }
     const amount = parseInt(amountRes.content.trim());
-
     amountMsg.delete();
     amountRes.delete();
-
     // For every amount, input an option
     let options = [];
     for (let i = 0; i < amount; i++) {
@@ -121,10 +116,9 @@ module.exports = {
 
       const optionRes = await awaitMessage(
         message,
-        m => m.content.trim() !== ""
+        m => m.content.trim() !== "" && m.author.id === message.author.id
       );
-      if (cancelKeywords.includes(optionRes.content.toLowerCase())) {
-
+      if (cancelKeywords.includes(optionRes.content.toLowerCase().trim())) {
         optionMsg.delete();
         return message.channel.send(`Aborted`);
       }
