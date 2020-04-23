@@ -1,5 +1,7 @@
 const Discord = require('discord.js');
-const util = require('util')
+const util = require('util');
+const { VultrexHaste } = require('vultrex.haste');
+const haste = new VultrexHaste({ url: "https://hastebin.com" });
 
 module.exports = {
   name: "eval",
@@ -15,12 +17,13 @@ module.exports = {
     var evaled;
     let color = client.colors.info;
     try {
-      evaled = eval(args.join(' '))
+      evaled = eval(args.join(' '));
+      if (evaled.constructor.name === "Promise") evaled = await evaled;
       if (typeof evaled != "string") {
         evaled = util.inspect(evaled);
       }
       if (evaled.length > 1024) {
-        evaled = 'Too long to display here';
+        evaled = await haste.post(evaled);
       }
     } catch (e) {
       evaled = e.stack;

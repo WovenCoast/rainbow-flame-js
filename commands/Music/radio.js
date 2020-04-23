@@ -71,14 +71,14 @@ module.exports = {
 					)
 			);
 			const collector = message.channel.createMessageCollector(
-				m => !isNaN(m.content) && m.content < pl.length + 1 && m.content > 0
+				m => (pl.map(p => p.toLowerCase()).includes(m.content.toLowerCase())) || (!isNaN(m.content) && m.content < pl.length + 1 && m.content > 0)
 			);
 			let collected = false;
 			collector.once("collect", m => {
 				collected = true;
 				requestMsg.delete();
 				m.delete();
-				addSongs(client, message, playlists[Object.keys(playlists)[parseInt(m.content) - 1]]);
+				addSongs(client, message, playlists[Object.keys(playlists)[isNaN(m.content) ? pl[pl.map(p => p.toLowerCase()).indexOf(m.content.toLowerCase())] : (parseInt(m.content) - 1)]]);
 			});
 			collector.once("end", (messages) => {
 				if (!collected) {
