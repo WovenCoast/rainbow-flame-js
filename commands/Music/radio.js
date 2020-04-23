@@ -103,5 +103,6 @@ async function addSongs(client, message, songs) {
 		const song = { url: searchResults.videos[0].url, duration: parseInt(info.length_seconds), author: info.author.name, title: info.title, requestedBy: message.author.tag };
 		serverQueue.songs.push(song);
 	});
+	serverQueue.loop = "shuffleall";
 	message.channel.send(`:white_check_mark: Successfully added the playlist! Check the songs using \`${message.prefix}queue\``);
 }
