@@ -53,7 +53,7 @@ module.exports = {
 		if (args[0]);
 		let pl = Object.keys(playlists);
 		const playlist = Object.keys(playlists).map(p => p.toLowerCase()).indexOf(args.join(" ").toLowerCase());
-		if (!playlist) {
+		if (playlist === -1) {
 			const requestMsg = await message.channel.send(
 				new Discord.MessageEmbed()
 					.setTimestamp()
