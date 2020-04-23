@@ -66,7 +66,7 @@ module.exports = {
 					.setDescription(
 						pl.map(
 							(playlist, index) =>
-								`**${index + 1}**: ${playlist}`
+								`**${index + 1}**: ${playlist} - ${client.util.pluralify(playlists[playlist].length, "song")}`
 						)
 					)
 			);
