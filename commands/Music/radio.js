@@ -1,8 +1,4 @@
 const Discord = require("discord.js");
-const ytdl = require("ytdl-core");
-const search = require("yt-search");
-
-const { play } = require('./play');
 
 const cancelKeywords = ["cancel", "abort"];
 const playlists = {
@@ -44,7 +40,6 @@ module.exports = {
 	async exec(client, message, args) {
 		if (!message.member.voice.channel)
 			throw new Error("You are not in a voice channel!");
-		if (args[0]);
 		let pl = Object.keys(playlists);
 		const playlist = Object.keys(playlists).map(p => p.toLowerCase()).indexOf(args.join(" ").toLowerCase());
 		if (playlist === -1) {
@@ -89,15 +84,13 @@ module.exports = {
 };
 
 async function addSongs(client, message, songs) {
-	const url = (await search(songs[0])).videos[0].url;
-	await play(client, message, url);
-	const serverQueue = client.queue.get(message.guild.id);
-	songs.slice(1, songs.length).forEach(async s => {
-		const searchResults = await search(s);
-		const info = await ytdl.getInfo(searchResults.videos[0].url);
-		const song = { url: searchResults.videos[0].url, duration: parseInt(info.length_seconds), author: info.author.name, title: info.title, requestedBy: message.author.tag };
-		serverQueue.songs.push(song);
+	const start = client.util.randomValue(0, songs.length);
+	await message.guild.music.startPlaying(songs[start], message.channel, message.member.voice.channel);
+	songs.forEach(async (s, index) => {
+		if (index === start) return;
+		const res = await message.guild.music.searchSongs(s, message.member);
+		message.guild.music.songs.push(res[0]);
 	});
-	serverQueue.loop = "shuffleall";
+	message.channel.music.loop = "shuffleall";
 	message.channel.send(`:white_check_mark: Successfully added the playlist! Check the songs using \`${message.prefix}queue\``);
 }

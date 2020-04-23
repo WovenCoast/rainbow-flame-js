@@ -2,49 +2,30 @@ module.exports = {
   name: "skip",
   aliases: ["next"],
   desc: "Skip a playback song",
-  async exec (client, message, args) {
-    const serverQueue = client.queue.get(message.guild.id);
-    if (!serverQueue) throw new Error("This command only works when I'm in a voice channel, try using the `play` command!");
+  async exec(client, message, args) {
+    if (!message.guild.music.playing) throw new Error("This command only works when I'm in a voice channel, try using the `play` command!");
     let count = 1;
     if (args[0] && !isNaN(args[0])) count = parseInt(args[0]);
     if (count > 32768) throw new Error("The maximum amount of songs skippable is 32768 songs!");
     for (let i = 0; i < count - 1; i++) {
-      if (serverQueue.loop === "noloop") {
-        serverQueue.songs.shift();
-      } else if (serverQueue.loop === "all") {
-        serverQueue.songs.push(serverQueue.songs.shift());
-      } else if (serverQueue.loop === "shuffle") {
-        serverQueue.songs.shift();
-        serverQueue.songs = shuffle(serverQueue.songs);
-      } else if (serverQueue.loop === "shuffleall") {
-        serverQueue.songs = shuffle(serverQueue.songs);
-      } else if (serverQueue.loop === "one") {
-        serverQueue.songs.unshift(serverQueue.songs.shift());
+      if (message.guild.music.loop === "noloop") {
+        message.guild.music.songs.shift();
+      } else if (message.guild.music.loop === "all") {
+        message.guild.music.songs.push(message.guild.music.songs.shift());
+      } else if (message.guild.music.loop === "shuffle") {
+        message.guild.music.songs.shift();
+        message.guild.music.songs = client.util.shuffle(message.guild.music.songs);
+      } else if (message.guild.music.loop === "shuffleall") {
+        message.guild.music.songs = client.util.shuffle(message.guild.music.songs);
+      } else if (message.guild.music.loop === "one") {
+        message.guild.music.songs.unshift(message.guild.music.songs.shift());
       }
-      if (!serverQueue.songs[0]) {
+      if (!message.guild.music.songs[0]) {
         count = i;
         break;
       };
     }
-    serverQueue.dispatcher.end("finish");
+    message.guild.music.connection.dispatcher.end("finish");
     return message.channel.send(`:white_check_mark: Skipped **${client.util.pluralify(count, "song")}**!`)
   }
-}
-
-function shuffle(array) {
-  const tempArray = Object.assign([], array);
-  var currentIndex = array.length,
-    temporaryValue,
-    randomIndex;
-
-  while (0 !== currentIndex) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    temporaryValue = tempArray[currentIndex];
-    tempArray[currentIndex] = tempArray[randomIndex];
-    tempArray[randomIndex] = temporaryValue;
-  }
-
-  return tempArray;
 }

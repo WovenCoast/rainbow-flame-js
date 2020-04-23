@@ -5,7 +5,7 @@ module.exports = {
   async exec(client, message, args) {
     if (!message.guild.me.voice.channel) throw new Error("I am not connected to any channel of this guild!");
     message.guild.me.voice.channel.leave();
-    client.queue.delete(message.guild.id);
+    message.guild.music.resetValues();
     return message.channel.send(":white_check_mark: Left the voice channel successfully!");
   }
 }
