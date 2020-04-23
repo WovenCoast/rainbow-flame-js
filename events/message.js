@@ -102,7 +102,7 @@ module.exports = {
         message.channel.send(
           new Discord.MessageEmbed()
             .setTimestamp()
-            .setAuthor(`${message.author.tag} | ${client.util.titleCase(invoke)}`, message.author.displayAvatarURL({ dynamic: true }))
+            .setAuthor(`${message.author.tag} | ${client.util.titleCase(command.name)}`, message.author.displayAvatarURL({ dynamic: true }))
             .setColor(client.colors.error)
             .setDescription(`An error occured. Are you sure your usage matches \`${command.usage.replace("{prefix}", client.prefix[0])}\`?\n\n${err}`)
         );
