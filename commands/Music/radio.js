@@ -78,7 +78,7 @@ module.exports = {
 				collected = true;
 				requestMsg.delete();
 				m.delete();
-				addSongs(client, message, playlists[Object.keys(playlists)[isNaN(m.content) ? pl[pl.map(p => p.toLowerCase()).indexOf(m.content.toLowerCase())] : (parseInt(m.content) - 1)]]);
+				addSongs(client, message, playlists[Object.keys(playlists)[isNaN(m.content) ? pl.map(p => p.toLowerCase()).indexOf(m.content.toLowerCase()) : (parseInt(m.content) - 1)]]);
 			});
 			collector.once("end", (messages) => {
 				if (!collected) {
