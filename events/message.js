@@ -91,14 +91,14 @@ module.exports = {
         Date.now()
       );
     }
-    client.commandsExec++;
+    client.commandStatus.exec++;
     command
       .exec(client, message, args)
       .then(() => {
-        client.commandsSuccess++;
+        client.commandStatus.success++;
       })
       .catch(err => {
-        client.commandsFail++;
+        client.commandStatus.fail++;
         message.channel.send(
           new Discord.MessageEmbed()
             .setTimestamp()

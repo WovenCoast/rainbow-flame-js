@@ -31,7 +31,7 @@ module.exports = {
         )
         .addField(
           "Bot Usage",
-          `Users: \`${client.users.cache.size}\`\nGuilds: \`${client.guilds.cache.size}\`\nChannels: \`${client.channels.cache.size}\`\nCommands Executed: \`${client.commandsExec}\`\nCommands Successful: \`${client.commandsSuccess}\`\nCommands Failed: \`${client.commandsFail}\``
+          `Users: \`${client.users.cache.size}\`\nGuilds: \`${client.guilds.cache.size}\`\nChannels: \`${client.channels.cache.size}\`\nCommands Executed: \`${client.commandStatus.exec}\`\nCommands Successful: \`${client.commandStatus.success}\`\nCommands Failed: \`${client.commandStatus.fail}\``
         )
     );
   }
