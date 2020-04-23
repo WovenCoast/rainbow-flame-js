@@ -10,9 +10,9 @@ module.exports = {
     let currentStatus = 0;
     function setStatus() {
       const presence = client.util.getRandom(client.presences)(client);
-      const version = require(path.join(require.main.path, 'package.json')).version;
+      const version = require(path.join(require.main.path, 'package.json')).versi;
       client.user.setPresence({ activity: { name: `${presence} | ${client.util.getRandom(client.prefix)}help | v${version}`, type: "WATCHING" }, status: statuses[currentStatus] });
-      currentStatus = client.util.randomValue(0, statuses.length - 1);
+      currentStatus = (currentStatus + 1) > statuses.length ? 0 : currentStatus + 1;
     }
     console.log(`Ready as ${client.user.tag}!`);
     setStatus();
