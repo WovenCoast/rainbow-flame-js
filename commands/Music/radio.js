@@ -4,14 +4,8 @@ const search = require("yt-search");
 
 const { play } = require('./play');
 
+const cancelKeywords = ["cancel", "abort"];
 const playlists = {
-	"The Ducks": [
-		"The Duck Song",
-		"The Duck Song 2",
-		"The Duck Song 3",
-		"The Duck Song 4",
-		"The Duck Song 5"
-	],
 	"Lofi": [
 		"Snowman WYS",
 		"You Sound Like A Dukc Lofi",
@@ -62,7 +56,7 @@ module.exports = {
 						message.author.displayAvatarURL()
 					)
 					.setColor(client.colors.info)
-					.setFooter("Reply in 30 seconds with the option you choose")
+					.setFooter(`Reply in 30 seconds with the option you choose, use ${cancelKeywords.map(c => `\`${c}\``).join(", ")} to cancel!`)
 					.setDescription(
 						pl.map(
 							(playlist, index) =>
@@ -71,13 +65,14 @@ module.exports = {
 					)
 			);
 			const collector = message.channel.createMessageCollector(
-				m => (pl.map(p => p.toLowerCase()).includes(m.content.toLowerCase())) || (!isNaN(m.content) && m.content < pl.length + 1 && m.content > 0)
+				m => ([...pl, ...cancelKeywords].map(p => p.toLowerCase()).includes(m.content.toLowerCase())) || (!isNaN(m.content) && m.content < pl.length + 1 && m.content > 0)
 			);
 			let collected = false;
 			collector.once("collect", m => {
 				collected = true;
 				requestMsg.delete();
 				m.delete();
+				if (cancelKeywords.includes(m.content.toLowerCase())) return message.channel.send("Aborted");
 				addSongs(client, message, playlists[Object.keys(playlists)[isNaN(m.content) ? pl.map(p => p.toLowerCase()).indexOf(m.content.toLowerCase()) : (parseInt(m.content) - 1)]]);
 			});
 			collector.once("end", (messages) => {
