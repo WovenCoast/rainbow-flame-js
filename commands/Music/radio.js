@@ -85,7 +85,8 @@ module.exports = {
 
 async function addSongs(client, message, songs) {
 	const start = client.util.randomValue(0, songs.length);
-	await message.guild.music.startPlaying(songs[start], message.channel, message.member.voice.channel);
+	const songs = await message.guild.music.searchSongs(songs[start], message.member);
+	await message.guild.music.startPlaying(songs[0], message.channel, message.member.voice.channel);
 	songs.forEach(async (s, index) => {
 		if (index === start) return;
 		const res = await message.guild.music.searchSongs(s, message.member);
