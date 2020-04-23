@@ -16,7 +16,7 @@ module.exports = {
       if (!(await ytdl.validateURL(args[0])))
         throw new Error("The URL must be a valid YouTube video URL!");
     }
-    const songs = await message.guild.music.searchSong(args.join(" "), message.member);
+    const songs = await message.guild.music.searchSongs(args.join(" "), message.member);
     message.guild.music.startPlaying(songs[0], message.channel, message.member.voice.channel);
   },
 };
