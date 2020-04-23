@@ -1,6 +1,6 @@
 {
   "name": "rainbowflame",
-  "version": "0.1.22",
+  "version": "0.1.28",
   "description": "A simple Node app built on Express, instantly up and running.",
   "main": "server.js",
   "scripts": {
@@ -23,6 +23,7 @@
     "opusscript": "0.0.7",
     "sql": "^0.78.0",
     "sqlite3": "^4.1.1",
+    "tinyurl": "^1.1.5",
     "utf-8-validate": "^5.0.2",
     "vultrex.haste": "^1.0.1",
     "yandex-translate": "^2.1.3",
