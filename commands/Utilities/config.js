@@ -13,7 +13,7 @@ module.exports = {
   desc: "Configure your guild settings",
   usage: "{prefix}config <list|add|remove|set|get>",
   async exec(client, message, args) {
-    if (!message.member.hasPermission([Discord.Permissions.FLAGS.MANAGE_GUILD])) throw new Error("You need to have the `MANAGE_GUILD` permission!");
+    if (!message.member.hasPermission(["MANAGE_GUILD"])) throw new Error("You need to have the `MANAGE_GUILD` permission!");
     if (!firstArguments.includes(args[0])) throw new Error(`\`${args[0] || " "}\` is not a valid argument!`);
     const schema = client.db.guild.schema;
     const types = client.db.guild.types;
@@ -42,6 +42,8 @@ module.exports = {
       if (!newValue) throw new Error(`${args.slice(2, args.length).join(" ")} is not a valid ${type}!`);
       await client.db.guild.set(message.guild.id, args[1], types[type](client, newValue));
       return message.channel.send(new Discord.MessageEmbed().setTimestamp().setColor(client.colors.info).setAuthor(`${message.guild.name} | Config`, message.guild.iconURL({ dynamic: true })).setTitle(`Set value for **${args[1]}**`).setDescription(``))
+    } else if (args[0] === "add") {
+
     }
   }
 }

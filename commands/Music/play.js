@@ -54,74 +54,73 @@ module.exports = {
         throw new Error("User request timed out");
       }
     })
+  },
+  async play(client, message, url) {
+    const info = await ytdl.getInfo(url);
+    if (info.player_response.videoDetails.isLiveContent) throw new Error("Cannot play live feed from YouTube");
+    const song = { url, duration: parseInt(info.length_seconds), author: info.author.name, title: info.title, requestedBy: message.author.tag };
+    if (!client.queue.has(message.guild.id)) {
+      const connection = await message.member.voice.channel.join();
+      message.guild.me.voice.setSelfDeaf(true);
+      const dispatcher = await connection.play(
+        ytdl(url, { filter: "audioonly", quality: "highestaudio" })
+      );
+      const serverQueue = {
+        connection,
+        dispatcher,
+        voiceChannel: message.member.voice.channel,
+        textChannel: message.channel,
+        loop: "noloop",
+        volume: 1.00,
+        songs: [song]
+      };
+      dispatcher.setVolume(serverQueue.volume);
+      client.queue.set(message.guild.id, serverQueue);
+      message.channel.send(`:arrow_forward: Playing ${parseSongName(serverQueue.songs[0].title, serverQueue.songs[0].author)} requested by **${serverQueue.songs[0].requestedBy}**`);
+      message.channel.stopTyping(true);
+      dispatcher.on("finish", songFinished);
+      async function songFinished() {
+        const serverQueue = client.queue.get(message.guild.id);
+        if (serverQueue.loop === "noloop") {
+          serverQueue.songs.shift();
+        } else if (serverQueue.loop === "all") {
+          serverQueue.songs.push(serverQueue.songs.shift());
+        } else if (serverQueue.loop === "shuffle") {
+          serverQueue.songs.shift();
+          serverQueue.songs = shuffle(serverQueue.songs);
+        } else if (serverQueue.loop === "shuffleall") {
+          serverQueue.songs = shuffle(serverQueue.songs);
+        } else if (serverQueue.loop === "one") {
+          serverQueue.songs.unshift(serverQueue.songs.shift());
+        }
+        if (!serverQueue.songs[0]) {
+          message.guild.me.voice.channel.leave();
+          client.queue.delete(message.guild.id);
+          return serverQueue.textChannel.send(":white_check_mark: Nothing more to play, quitting voice channel");
+        };
+        if (serverQueue.voiceChannel.members.size <= 1) {
+          message.guild.me.voice.channel.leave();
+          client.queue.delete(message.guild.id);
+          return serverQueue.textChannel.send(":octagonal_sign: Not playing music to anyone, quitting voice channel");
+        }
+        const newDispatcher = await serverQueue.connection.play(
+          ytdl(serverQueue.songs[0].url, { filter: "audioonly", quality: "highestaudio" })
+        );
+        newDispatcher.on('finish', songFinished);
+        newDispatcher.setVolume(serverQueue.volume);
+        serverQueue.dispatcher = newDispatcher;
+        serverQueue.textChannel.send(`:arrow_forward: Playing ${parseSongName(serverQueue.songs[0].title, serverQueue.songs[0].author)} requested by **${serverQueue.songs[0].requestedBy}**`);
+        client.queue.set(message.guild.id, serverQueue);
+      }
+    } else {
+      const serverQueue = client.queue.get(message.guild.id);
+      serverQueue.songs.push(song);
+      client.queue.set(message.guild.id, serverQueue);
+      message.channel.send(`:white_check_mark: Added to queue ${parseSongName(song.title, song.author)} requested by **${song.requestedBy}**`);
+      message.channel.stopTyping(true);
+    }
   }
 };
-
-async function play(client, message, url) {
-  const info = await ytdl.getInfo(url);
-  if (info.player_response.videoDetails.isLiveContent) throw new Error("Cannot play live feed from YouTube");
-  const song = { url, duration: parseInt(info.length_seconds), author: info.author.name, title: info.title, requestedBy: message.author.tag };
-  if (!client.queue.has(message.guild.id)) {
-    const connection = await message.member.voice.channel.join();
-    message.guild.me.voice.setSelfDeaf(true);
-    const dispatcher = await connection.play(
-      ytdl(url, { filter: "audioonly", quality: "highestaudio" })
-    );
-    const serverQueue = {
-      connection,
-      dispatcher,
-      voiceChannel: message.member.voice.channel,
-      textChannel: message.channel,
-      loop: "noloop",
-      volume: 1.00,
-      songs: [song]
-    };
-    dispatcher.setVolume(serverQueue.volume);
-    client.queue.set(message.guild.id, serverQueue);
-    message.channel.send(`:arrow_forward: Playing ${parseSongName(serverQueue.songs[0].title, serverQueue.songs[0].author)} requested by **${serverQueue.songs[0].requestedBy}**`);
-    message.channel.stopTyping(true);
-    dispatcher.on("finish", songFinished);
-    async function songFinished() {
-      const serverQueue = client.queue.get(message.guild.id);
-      if (serverQueue.loop === "noloop") {
-        serverQueue.songs.shift();
-      } else if (serverQueue.loop === "all") {
-        serverQueue.songs.push(serverQueue.songs.shift());
-      } else if (serverQueue.loop === "shuffle") {
-        serverQueue.songs.shift();
-        serverQueue.songs = shuffle(serverQueue.songs);
-      } else if (serverQueue.loop === "shuffleall") {
-        serverQueue.songs = shuffle(serverQueue.songs);
-      } else if (serverQueue.loop === "one") {
-        serverQueue.songs.unshift(serverQueue.songs.shift());
-      }
-      if (!serverQueue.songs[0]) {
-        message.guild.me.voice.channel.leave();
-        client.queue.delete(message.guild.id);
-        return serverQueue.textChannel.send(":white_check_mark: Nothing more to play, quitting voice channel");
-      };
-      if (serverQueue.voiceChannel.members.size <= 1) {
-        message.guild.me.voice.channel.leave();
-        client.queue.delete(message.guild.id);
-        return serverQueue.textChannel.send(":octagonal_sign: Not playing music to anyone, quitting voice channel");
-      }
-      const newDispatcher = await serverQueue.connection.play(
-        ytdl(serverQueue.songs[0].url, { filter: "audioonly", quality: "highestaudio" })
-      );
-      newDispatcher.on('finish', songFinished);
-      newDispatcher.setVolume(serverQueue.volume);
-      serverQueue.dispatcher = newDispatcher;
-      serverQueue.textChannel.send(`:arrow_forward: Playing ${parseSongName(serverQueue.songs[0].title, serverQueue.songs[0].author)} requested by **${serverQueue.songs[0].requestedBy}**`);
-      client.queue.set(message.guild.id, serverQueue);
-    }
-  } else {
-    const serverQueue = client.queue.get(message.guild.id);
-    serverQueue.songs.push(song);
-    client.queue.set(message.guild.id, serverQueue);
-    message.channel.send(`:white_check_mark: Added to queue ${parseSongName(song.title, song.author)} requested by **${song.requestedBy}**`);
-    message.channel.stopTyping(true);
-  }
-}
 
 function shuffle(array) {
   const tempArray = Object.assign([], array);
@@ -141,5 +140,5 @@ function shuffle(array) {
   return tempArray;
 }
 function parseSongName(title, author) {
-  return title.includes(author) ? title.replace(author,`**${author}**`) : `**${title}** by *${author}*` 
+  return title.includes(author) ? title.replace(author, `**${author}**`) : `**${title}** by *${author}*`
 }

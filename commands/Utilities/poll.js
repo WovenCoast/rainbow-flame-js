@@ -49,18 +49,18 @@ module.exports = {
           )
           .setTitle(`What should the question for the poll be?`)
       );
-      message.channel.startTyping(30);
+
       const questionRes = await awaitMessage(
         message,
         m => m.content.trim() !== ""
       );
       if (cancelKeywords.includes(questionRes.content.toLowerCase())) {
-        message.channel.stopTyping(true);
+
         questionMsg.delete();
         return message.channel.send(`Aborted`);
       }
       question = questionRes.content.trim();
-      message.channel.stopTyping(true);
+
       questionMsg.delete();
       questionRes.delete();
     }
@@ -78,7 +78,7 @@ module.exports = {
           `Alright, the question should be \`${question}\`, how many options for this poll should there be?`
         )
     );
-    message.channel.startTyping(30);
+
     const amountRes = await awaitMessage(
       message,
       m =>
@@ -87,12 +87,12 @@ module.exports = {
         parseInt(m.content) > 0
     );
     if (cancelKeywords.includes(amountRes.content.toLowerCase())) {
-      message.channel.stopTyping(true);
+
       amountMsg.delete();
       return message.channel.send(`Aborted`);
     }
     const amount = parseInt(amountRes.content.trim());
-    message.channel.stopTyping(true);
+
     amountMsg.delete();
     amountRes.delete();
 
@@ -114,22 +114,22 @@ module.exports = {
             i === 0
               ? `Alright, the amount of options should be \`${amount}\`, what should the first option be?`
               : `Alright, the ${adjNumbers[i]} option should be \`${
-                  options[i - 1]
-                }\`, what should the ${adjNumbers[i + 1]} option be?`
+              options[i - 1]
+              }\`, what should the ${adjNumbers[i + 1]} option be?`
           )
       );
-      message.channel.startTyping(30);
+
       const optionRes = await awaitMessage(
         message,
         m => m.content.trim() !== ""
       );
       if (cancelKeywords.includes(optionRes.content.toLowerCase())) {
-        message.channel.stopTyping(true);
+
         optionMsg.delete();
         return message.channel.send(`Aborted`);
       }
       options.push(optionRes.content);
-      message.channel.stopTyping(true);
+
       optionMsg.delete();
       optionRes.delete();
     }
