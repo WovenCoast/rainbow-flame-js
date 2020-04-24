@@ -16,6 +16,9 @@ module.exports = {
     console.log(`Ready as ${client.user.tag}!`);
     setStatus();
     setInterval(setStatus, 15000);
+    client.commandStatus.exec = await client.db.client.get(client.user.id, "commandsExec", client.commandStatus.exec);
+    client.commandStatus.success = await client.db.client.get(client.user.id, "commandsSuccess", client.commandStatus.success);
+    client.commandStatus.fail = await client.db.client.get(client.user.id, "commandsFail", client.commandStatus.fail);
     if ((await client.db.client.get(client.user.id, "restartTimestamp")) !== 0) {
       const feedbackChannel = await client.db.client.get(client.user.id, "restartInvokedChannel");
       if (!feedbackChannel) return;

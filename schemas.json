@@ -1,5 +1,23 @@
 {
   "client": {
+    "commandsExec": {
+      "array": false,
+      "type": "int",
+      "default": 0,
+      "modifiable": true
+    },
+    "commandsSuccess": {
+      "array": false,
+      "type": "int",
+      "default": 0,
+      "modifiable": true
+    },
+    "commandsFail": {
+      "array": false,
+      "type": "int",
+      "default": 0,
+      "modifiable": true
+    },
     "restartTimestamp": {
       "array": false,
       "type": "int",
