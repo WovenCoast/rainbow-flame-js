@@ -1,4 +1,18 @@
 {
+  "client": {
+    "restartTimestamp": {
+      "array": false,
+      "type": "int",
+      "default": 0,
+      "modifiable": true
+    },
+    "restartInvokedChannel": {
+      "array": false,
+      "type": "channel",
+      "default": "",
+      "modifiable": true
+    }
+  },
   "guild": {
     "prefix": {
       "array": true,
