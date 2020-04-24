@@ -1,8 +1,10 @@
 require('dotenv').config();
 const { Client } = require('./lib/all');
 const schemas = require('./schemas.json');
+const { version } = require('./package.json');
 const client = new Client({
   token: process.env.DISCORD_TOKEN,
+  version,
   cooldown: 2,
   colors: {
     scheme: ['#FF9AA2', '#FFB7B2', '#FFDAC1', '#E2F0CB', '#B5EAD7', '#C7CEEA'],
@@ -10,7 +12,7 @@ const client = new Client({
     error: '#FF9AA2',
     success: '#B5EAD7'
   },
-  prefix: ["rf.", "rf ", "rf!", "rf>", ">rf ", "rf-", "*rf ", "rf*"],
+  prefix: ["rf.", "rf ", "rf!", "rf>", ">rf ", "rf-", "-rf", "*rf ", "rf*"],
   presences: [
     (client) => `${client.util.pluralify(client.users.cache.size, "user")}!`,
     (client) => `${client.util.pluralify(client.channels.cache.size, "channel")}!`,

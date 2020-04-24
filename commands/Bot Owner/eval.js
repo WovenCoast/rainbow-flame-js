@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const util = require('util');
 const { VultrexHaste } = require('vultrex.haste');
-const haste = new VultrexHaste({ url: "https://hastebin.com" });
+const haste = new VultrexHaste({ url: "http://hasteb.in" });
 
 module.exports = {
   name: "eval",
@@ -18,12 +18,12 @@ module.exports = {
     let color = client.colors.info;
     try {
       evaled = eval(args.join(' '));
-      if (evaled.constructor.name === "Promise") evaled = await evaled;
+      if (evaled instanceof Promise) evaled = await evaled;
       if (typeof evaled != "string") {
         evaled = util.inspect(evaled);
       }
       if (evaled.length > 1024) {
-        evaled = await haste.post(evaled);
+        evaled = await haste.post(evaled).catch(err => { throw new Error(err) });
       }
     } catch (e) {
       evaled = e.stack;
@@ -33,9 +33,10 @@ module.exports = {
       color = client.colors.error;
     }
     var embed = new Discord.MessageEmbed()
-    embed.addField('Input', args.join(' '))
-    embed.addField('Output', evaled)
-    embed.setColor(color)
+      .setTimestamp()
+      .setColor(color)
+      .addField('Input', args.join(' '))
+      .addField('Output', evaled)
     message.channel.send(embed)
   }
 }
