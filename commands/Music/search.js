@@ -17,6 +17,9 @@ module.exports = {
 		const collector = message.channel.createMessageCollector(filter, { time: 6e4 });
 		let collected = false;
 		collector.on('collect', m => {
+			msg.delete();
+			m.delete();
+			collected = true;
 			if (cancelKeywords.includes(m.content.toLowerCase())) {
 				m.delete();
 				msg.delete();
@@ -24,9 +27,6 @@ module.exports = {
 				return;
 			}
 			const song = isNaN(m.content) ? songs.find(s => s.title.toLowerCase() === m.content.toLowerCase()) : songs[parseInt(m.content) - 1];
-			msg.delete();
-			m.delete();
-			collected = true;
 			message.guild.music.startPlaying(song, message.channel, message.member.voice.channel);
 		});
 		collector.on('end', () => {

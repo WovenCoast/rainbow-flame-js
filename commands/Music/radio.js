@@ -23,7 +23,7 @@ const playlists = {
 		"Conforting You WYS",
 		"Satellite WYS",
 		"Missing Earth Hoogway",
-		"You cocobona",
+		"You cocobona lofi",
 		"pale Moon Dr. Dundiff",
 		"Puddle E I S U",
 		"Midnight Snack Purple Cat",
