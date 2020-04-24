@@ -10,7 +10,7 @@ module.exports = {
   usage: "{prefix}eval <...expression:string>",
   cooldown: 2,
   async exec(client, message, args) {
-    if (!["502446928303226890"].includes(message.author.id)) throw new Error("You don't have enough permissions to evaluate a JavaScript command on me");
+    if (!client.owners.includes(message.author.id)) throw new Error("You don't have enough permissions to evaluate a JavaScript command on me");
     if (!args.join(' ')) {
       return message.channel.send('Nothing to be evaled')
     }

@@ -6,7 +6,7 @@ module.exports = {
 	aliases: [],
 	desc: "Reload everything in the bot",
 	async exec(client, message, args) {
-		if (!["502446928303226890"].includes(message.author.id)) throw new Error("You don't have enough permissions to reload my commands");
+		if (!client.owners.includes(message.author.id)) throw new Error("You don't have enough permissions to reload my commands");
 		client.commands.forEach(command => {
 			delete require.cache[require.resolve(path.join(require.main.path, client.customOptions.commands, command.category, command.name + ".js"))];
 		})

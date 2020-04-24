@@ -7,7 +7,7 @@ module.exports = {
 	desc: "Execute a command in a terminal",
 	usage: "{prefix}exec <...expression:string>",
 	async exec(client, message, args) {
-		if (!["502446928303226890"].includes(message.author.id)) throw new Error("You don't have enough permissions to execute a terminal command on me");
+		if (!client.owners.includes(message.author.id)) throw new Error("You don't have enough permissions to execute a terminal command on me");
 		if (!args.join(' ')) {
 			return message.channel.send('Nothing to be executed')
 		}

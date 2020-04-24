@@ -4,6 +4,7 @@ const schemas = require('./schemas.json');
 const { version } = require('./package.json');
 const client = new Client({
   token: process.env.DISCORD_TOKEN,
+  owners: ["502446928303226890"],
   version,
   cooldown: 2,
   colors: {
