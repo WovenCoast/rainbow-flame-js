@@ -35,7 +35,7 @@ module.exports = {
       .setTimestamp()
       .setColor(color)
       .addField('Input', args.join(' '))
-      .addField('Output', evaled)
+      .addField('Output', evaled.replace(client.token, "no cyka blyat"))
     message.channel.send(embed)
   }
 }
