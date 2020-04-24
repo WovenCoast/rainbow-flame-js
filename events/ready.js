@@ -21,7 +21,7 @@ module.exports = {
       if (!feedbackChannel) return;
       const start = await client.db.client.get(client.user.id, "restartTimestamp");
       const millis = Date.now() - start;
-      feedbackChannel.send(`:white_check_mark: Successfully restarted the bot in ${client.util.convertMs(millis)}!`);
+      feedbackChannel.send(`:white_check_mark: Successfully restarted the bot in ${client.util.convertMs(millis)} (${millis}ms)!`);
       await client.db.client.set(client.user.id, "restartTimestamp", 0);
       await client.db.client.set(client.user.id, "restartInvokedChannel", "");
     }
