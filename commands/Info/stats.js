@@ -3,7 +3,7 @@ const os = require("os");
 
 module.exports = {
   name: "stats",
-  aliases: ["info", "stat", "botstat"],
+  aliases: ["info", "stat", "botstat", "status"],
   desc: "View the stats of this bot",
   async exec(client, message, args) {
     return message.channel.send(
@@ -17,7 +17,7 @@ module.exports = {
         )
         .addField(
           "Software Info",
-          `Node: \`${process.versions.node}\`\nDiscord.js: \`v${Discord.version}\`\nPlatform: \`${process.platform} (${process.arch})\``
+          `${client.user.username}: \`${client.version}\`\nNode: \`v${process.versions.node}\`\nDiscord.js: \`v${Discord.version}\`\nPlatform: \`${process.platform} (${process.arch})\``
         )
         .addField(
           "Server Info",
