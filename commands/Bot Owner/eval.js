@@ -22,7 +22,7 @@ module.exports = {
         evaled = util.inspect(evaled);
       }
       if (evaled.length > 1024) {
-        evaled = await haste(evaled, { url: "https://haste.wovencoast.me", extension: "log" }).catch(err => { throw err });
+        evaled = await haste(evaled, { url: "http://haste.wovencoast.me", extension: "log" }).catch(err => { throw err });
       }
     } catch (e) {
       evaled = e.stack;
