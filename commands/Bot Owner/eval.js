@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 const util = require('util');
-const { VultrexHaste } = require('vultrex.haste');
-const haste = new VultrexHaste({ url: "http://hasteb.in" });
+const haste = require('hastebin-gen');
 
 module.exports = {
   name: "eval",
@@ -23,7 +22,7 @@ module.exports = {
         evaled = util.inspect(evaled);
       }
       if (evaled.length > 1024) {
-        evaled = await haste.post(evaled).catch(err => { throw new Error(err) });
+        evaled = await haste(evaled, { extension: "txt" }).catch(err => { throw new Error(err) });
       }
     } catch (e) {
       evaled = e.stack;
