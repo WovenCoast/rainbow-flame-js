@@ -5,7 +5,7 @@ const tinyurl = require('tinyurl');
 module.exports = {
 	name: "yt-download",
 	aliases: ["download"],
-	desc: "Send a link from which you can download the youtube video",
+	desc: "Send a link from which you can download the YouTube video",
 	async exec(client, message, args) {
 		const res = await search(args.join(" "));
 		const info = await ytdl.getInfo(res.videos[0].videoId)
