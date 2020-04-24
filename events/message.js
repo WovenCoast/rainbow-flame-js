@@ -24,7 +24,7 @@ module.exports = {
       .find(p => message.content.toLowerCase().startsWith(p.toLowerCase()))
       .toLowerCase();
     const invoke = message.content
-      .replace(/[^A-Za-z]/gi, "")
+      .replace(/[^A-Za-z]/gi, " ")
       .substr(prefix.length, message.content.length)
       .trim()
       .split(" ")[0]
