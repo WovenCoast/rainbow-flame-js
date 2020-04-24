@@ -72,6 +72,8 @@ module.exports = {
             client.util.getRandom(client.prefix)
           )
         );
+      } else {
+        embed.setColor(client.colors.error).setDescription(`Invalid command! Try doing \`${client.util.getRandom(client.prefix)}help\` with no arguments to see what the commands are!`);
       }
       return message.channel.send(embed);
     }
