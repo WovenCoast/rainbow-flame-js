@@ -90,6 +90,7 @@ async function addSongs(client, message, songs) {
 	songs.forEach(async (s, index) => {
 		if (index === start) return;
 		const res = await message.guild.music.searchSongs(s, message.member);
+		if (!res[0]) return;
 		message.guild.music.songs.push(res[0]);
 	});
 	message.guild.music.loop = "shuffleall";
