@@ -37,6 +37,14 @@ module.exports = {
 	desc: "Play a playlist that we have chosen for you",
 	usage: "{prefix}radio",
 	cooldown: 3,
+	async init(client) {
+		Object.keys(playlists).forEach(playlistKey => {
+			const playlist = playlists[playlistKey];
+			playlist.forEach(async (song, index) => {
+				playlists[playlistKey][index] = (await client.guilds.cache.first().music.searchSongs(song, { user: { tag: "" } }))[0];
+			});
+		});
+	},
 	async exec(client, message, args) {
 		if (!message.member.voice.channel)
 			throw new Error("You are not in a voice channel!");
@@ -55,7 +63,7 @@ module.exports = {
 					.setDescription(
 						pl.map(
 							(playlist, index) =>
-								`**${index + 1}**: ${playlist} - ${client.util.pluralify(playlists[playlist].length, "song")}`
+								`**${index + 1}**: ${playlist} - ${client.util.pluralify(playlists[playlist].length, "song")} : ${client.util.convertDuration(playlists[playlist].map(s => s.duration).reduce((acc, s) => acc + s))}`
 						)
 					)
 			);
@@ -83,15 +91,16 @@ module.exports = {
 	}
 };
 
-async function addSongs(client, message, songs) {
+async function addSongs(client, message, _s) {
+	const songs = _s.map(song => {
+		song.requestedBy = message.author.tag;
+		return song;
+	})
 	const start = client.util.randomValue(0, songs.length);
-	const res = await message.guild.music.searchSongs(songs[start], message.member);
-	await message.guild.music.startPlaying(res[0], message.channel, message.member.voice.channel);
+	await message.guild.music.startPlaying(songs[0], message.channel, message.member.voice.channel);
 	songs.forEach(async (s, index) => {
 		if (index === start) return;
-		const res = await message.guild.music.searchSongs(s, message.member);
-		if (!res[0]) return;
-		message.guild.music.songs.push(res[0]);
+		message.guild.music.songs.push(s);
 	});
 	message.guild.music.loop = "shuffleall";
 	message.channel.send(`:white_check_mark: Successfully added the playlist! Check the songs using \`${message.prefix}queue\``);
