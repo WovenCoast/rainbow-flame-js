@@ -27,7 +27,7 @@ module.exports = {
 			msg.delete();
 			m.delete();
 			collected = true;
-			message.guild.music.startPlaying(song, m.channel, message.member.voice.channel);
+			message.guild.music.startPlaying(song, message.channel, message.member.voice.channel);
 		});
 		collector.on('end', () => {
 			if (!collected) {
