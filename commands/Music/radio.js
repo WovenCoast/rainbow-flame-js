@@ -19,8 +19,8 @@ module.exports = {
 	async exec(client, message, args) {
 		if (!message.member.voice.channel)
 			throw new Error("You are not in a voice channel!");
-		let pl = Object.keys(playlists);
-		const playlist = Object.keys(playlists).map(p => p.toLowerCase()).indexOf(args.join(" ").toLowerCase());
+		let pl = Object.keys(client.playlists);
+		const playlist = Object.keys(client.playlists).map(p => p.toLowerCase()).indexOf(args.join(" ").toLowerCase());
 		if (playlist === -1) {
 			const requestMsg = await message.channel.send(
 				new Discord.MessageEmbed()
@@ -34,7 +34,7 @@ module.exports = {
 					.setDescription(
 						pl.map(
 							(playlist, index) =>
-								`**${index + 1}**: ${playlist} - ${client.util.pluralify(playlists[playlist].length, "song")} : ${client.util.convertDuration(playlists[playlist].map(s => s.duration).reduce((acc, s) => acc + s))}`
+								`**${index + 1}**: ${playlist} - ${client.util.pluralify(client.playlists[playlist].length, "song")} : ${client.util.convertDuration(client.playlists[playlist].map(s => s.duration).reduce((acc, s) => acc + s))}`
 						)
 					)
 			);
@@ -47,7 +47,7 @@ module.exports = {
 				requestMsg.delete();
 				m.delete();
 				if (cancelKeywords.includes(m.content.toLowerCase())) return message.channel.send("Aborted");
-				addSongs(client, message, playlists[Object.keys(playlists)[isNaN(m.content) ? pl.map(p => p.toLowerCase()).indexOf(m.content.toLowerCase()) : (parseInt(m.content) - 1)]]);
+				addSongs(client, message, client.playlists[Object.keys(client.playlists)[isNaN(m.content) ? pl.map(p => p.toLowerCase()).indexOf(m.content.toLowerCase()) : (parseInt(m.content) - 1)]]);
 			});
 			collector.once("end", (messages) => {
 				if (!collected) {
@@ -57,7 +57,7 @@ module.exports = {
 				}
 			})
 		} else {
-			addSongs(client, message, Object.values(playlists)[playlist]);
+			addSongs(client, message, Object.values(client.playlists)[playlist]);
 		}
 	}
 };
