@@ -49,7 +49,7 @@ module.exports = {
 				}
 			})
 		} else {
-			addSongs(client, message, Object.values(client.playlists[playlist]));
+			addSongs(client, message, Object.values(client.playlists[pl[playlist]]));
 		}
 	}
 };
