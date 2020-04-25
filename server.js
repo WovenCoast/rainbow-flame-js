@@ -1,6 +1,7 @@
 require('dotenv').config();
 const { Client } = require('./lib/all');
 const schemas = require('./schemas.json');
+const playlists = require('./playlists.json');
 const { version } = require('./package.json');
 const client = new Client({
   token: process.env.DISCORD_TOKEN,
@@ -20,6 +21,7 @@ const client = new Client({
     (client) => `${client.util.pluralify(client.guilds.cache.size, "guild")}!`
   ],
   schemas,
+  playlists,
   commands: './commands',
   events: './events'
 }, {});

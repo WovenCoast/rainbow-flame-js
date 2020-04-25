@@ -1,35 +1,6 @@
 const Discord = require("discord.js");
 
 const cancelKeywords = ["cancel", "abort"];
-const playlists = {
-	"Lofi": [
-		"Snowman WYS",
-		"You Sound Like A Dukc Lofi",
-		"Death Bed Kets Formal Chicken",
-		"Both of Us Idealism",
-		"Eternal Youth (Lofi)",
-		"Autumn Leaves Axian",
-		"with u idealism",
-		"Lofi rain by Lee",
-		"unthinkable idealism",
-		"Chill Study Beats 2 . Instrumental and Jazz",
-		"lonely idealism",
-		"Nighttime Ramen",
-		"C H I L L V I B E S",
-		"Alone time purple cat",
-		"Take me Back WYS",
-		"Nautilus WYS",
-		"lofi study mix for homework",
-		"Conforting You WYS",
-		"Satellite WYS",
-		"Missing Earth Hoogway",
-		"You cocobona lofi",
-		"pale Moon Dr. Dundiff",
-		"Puddle E I S U",
-		"Midnight Snack Purple Cat",
-		"Night Owls sleepermane"
-	]
-}
 
 module.exports = {
 	name: "radio",
@@ -38,10 +9,10 @@ module.exports = {
 	usage: "{prefix}radio",
 	cooldown: 3,
 	async init(client) {
-		Object.keys(playlists).forEach(playlistKey => {
-			const playlist = playlists[playlistKey];
+		Object.keys(client.playlists).forEach(playlistKey => {
+			const playlist = client.playlists[playlistKey];
 			playlist.forEach(async (song, index) => {
-				playlists[playlistKey][index] = (await client.guilds.cache.first().music.searchSongs(song, { user: { tag: "" } }))[0];
+				client.playlists[playlistKey][index] = (await client.guilds.cache.first().music.searchSongs(song, { user: { tag: "" } }))[0];
 			});
 		});
 	},
