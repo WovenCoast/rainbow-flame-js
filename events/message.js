@@ -3,6 +3,7 @@ const Discord = require('discord.js');
 module.exports = {
   name: "message",
   async exec(client, message) {
+    return;
     if (message.author.bot) return;
     if (
       message.content.trim() === `<@${client.user.id}>` ||
