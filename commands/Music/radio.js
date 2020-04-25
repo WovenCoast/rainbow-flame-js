@@ -8,14 +8,6 @@ module.exports = {
 	desc: "Play a playlist that we have chosen for you",
 	usage: "{prefix}radio",
 	cooldown: 3,
-	async init(client) {
-		Object.keys(client.playlists).forEach(playlistKey => {
-			const playlist = client.playlists[playlistKey];
-			playlist.forEach(async (song, index) => {
-				client.playlists[playlistKey][index] = (await client.guilds.cache.first().music.searchSongs(song, { user: { tag: "" } }))[0];
-			});
-		});
-	},
 	async exec(client, message, args) {
 		if (!message.member.voice.channel)
 			throw new Error("You are not in a voice channel!");
