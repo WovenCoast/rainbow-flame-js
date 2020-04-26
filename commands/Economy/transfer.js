@@ -17,8 +17,8 @@ module.exports = {
     if (parseInt(amount) < 1) throw new Error(`${amount} is too small of a value!`);
     if (parseInt(amount) > wallet) throw new Error(`Cannot transfer more than what you already have!`);
     amount = parseInt(amount);
-    await client.db.member.set(message.guild.id + message.author.id, "wallet", (await client.db.member.get(message.guild.id + message.author.id, "wallet")) - amount);
-    await client.db.member.set(message.guild.id + user.id, "wallet", (await client.db.member.get(message.guild.id + user.id, "wallet")) + amount);
+    await client.db.member._set(message.guild.id + message.author.id, "wallet", (await client.db.member.get(message.guild.id + message.author.id, "wallet")) - amount);
+    await client.db.member._set(message.guild.id + user.id, "wallet", (await client.db.member.get(message.guild.id + user.id, "wallet")) + amount);
     return message.channel.send(`:white_check_mark: Successfully transferred ${client.util.formatMoney(amount)} to ${user.tag}!`);
   }
 }

@@ -15,8 +15,8 @@ module.exports = {
     if (parseInt(amount) < 1) throw new Error(`${amount} is too small of a value!`);
     if (parseInt(amount) > wallet) throw new Error(`Cannot deposit more than what you already have!`);
     amount = parseInt(amount);
-    await client.db.member.set(message.guild.id + message.author.id, "wallet", wallet - amount);
-    await client.db.user.set(message.author.id, "bank", bank + amount);
+    await client.db.member._set(message.guild.id + message.author.id, "wallet", wallet - amount);
+    await client.db.user._set(message.author.id, "bank", bank + amount);
     return message.channel.send(`:white_check_mark: Successfully transferred ${client.util.formatMoney(amount)} to your bank!`);
   }
 }

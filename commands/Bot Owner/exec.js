@@ -12,11 +12,11 @@ module.exports = {
 			return message.channel.send('Nothing to be executed')
 		}
 		childProcess.exec(args.join(" "), { windowsHide: true, cwd: require.main.path }, (err, stdout, stderr) => {
-			const embed = new Discord.MessageEmbed().setTimestamp().setAuthor(`${message.author.tag} | Exec`, message.author.displayAvatarURL({ dynamic: true }));
+			const embed = new Discord.MessageEmbed().setTimestamp().setAuthor(`${message.author.tag} | Exec`, message.author.displayAvatarURL({ dynamic: true })).addField("Input", `\`\`\`${args.join(" ")}\`\`\``);
 			if (err) {
-				embed.setColor(client.colors.error).setTitle("Something went terribly wrong.....").setDescription(`\`\`\`${stderr}\`\`\``);
+				embed.setColor(client.colors.error).setTitle("Something went terribly wrong.....").addField("Error", `\`\`\`${stderr}\`\`\``);
 			} else {
-				embed.setColor(client.colors.success).setDescription(`\`\`\`${stdout}\`\`\``);
+				embed.setColor(client.colors.success).setTitle("Success!").addField("Output", `\`\`\`${stdout}\`\`\``);
 			}
 			message.channel.send(embed);
 		});

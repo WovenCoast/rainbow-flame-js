@@ -34,8 +34,8 @@ module.exports = {
     var embed = new Discord.MessageEmbed()
       .setTimestamp()
       .setColor(color)
-      .addField('Input', args.join(' '))
-      .addField('Output', evaled.replace(client.token, "no cyka blyat"))
+      .addField('Input', `\`\`\`${args.join(' ')}\`\`\``)
+      .addField('Output', `\`\`\`${evaled.replace(client.token, "no cyka blyat")}\`\`\``)
     message.channel.send(embed)
   }
 }
