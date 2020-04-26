@@ -54,15 +54,14 @@ module.exports = {
 	}
 };
 
-async function addSongs(client, message, _s) {
-	const songs = _s.map(song => {
-		song.requestedBy = message.author.tag;
-		return song;
-	})
+async function addSongs(client, message, songs) {
 	const start = client.util.randomValue(0, songs.length);
-	await message.guild.music.startPlaying(songs[0], message.channel, message.member.voice.channel);
-	songs.forEach(async (s, index) => {
+	const song = await message.guild.music.searchSong(songs[start]);
+	await message.guild.music.startPlaying(song, message.author, message.channel, message.member.voice.channel);
+	songs.forEach(async (_s, index) => {
 		if (index === start) return;
+		const s = await message.guild.music.searchSong(_s);
+		s.requestedBy = message.author.tag;
 		message.guild.music.songs.push(s);
 	});
 	message.guild.music.loop = "shuffleall";
