@@ -64,6 +64,7 @@ module.exports = {
 };
 
 async function addSongs(client, message, songs) {
+	if ((message.guild.music.songs.length + songs.length) > message.guild.music.queueLimit) return message.channel.send(`:octagonal_sign: You cannot add a playlist that will make the queue bigger than its limit of ${message.guild.music.queueLimit} songs!`);
 	const start = client.util.randomValue(0, songs.length);
 	await message.guild.music.startPlaying(songs[start], message.author, message.channel, message.member.voice.channel);
 	songs.forEach(async (s, index) => {
