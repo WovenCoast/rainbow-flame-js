@@ -10,6 +10,7 @@ module.exports = {
 		if (!args[0])
 			throw new Error("You need to provide a search string!");
 		if (!message.guild.music.playing && !message.member.voice.channel) throw new Error("You are not in a voice channel!");
+		if ((message.guild.music.songs.length + 1) > message.guild.music.queueLimit) throw new Error(`You can't add more than ${message.guild.music.queueLimit} songs into one queue!`);
 		const songs = (await message.guild.music.searchSongs(args.join(" "))).slice(0, 10);
 		const validWords = [...songs.map(s => s.title.toLowerCase()), ...cancelKeywords];
 		const msg = await message.channel.send(new Discord.MessageEmbed().setTimestamp().setColor(client.colors.info).setFooter(`Use ${cancelKeywords.map(c => `"${c}"`).join(", ")} to cancel!`).setAuthor(`${message.author.tag} | Choose a song`, message.author.displayAvatarURL({ dynamic: true })).setDescription(songs.map((s, index) => `**${index + 1}**: ${client.util.parseSongName(s)}`).join("\n")));
