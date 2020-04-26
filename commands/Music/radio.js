@@ -58,8 +58,8 @@ module.exports = {
 					return undefined;
 				}
 			))
-			console.log(playlists[playlist]);
-			addSongs(client, message, playlists[playlist]);
+			console.log(playlists[Object.keys(playlists)[playlist]]);
+			addSongs(client, message, playlists[Object.keys(playlists)[playlist]]);
 		}
 	}
 };
