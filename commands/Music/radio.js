@@ -58,7 +58,8 @@ module.exports = {
 					return undefined;
 				}
 			))
-			addSongs(client, message, playlists[Object.keys(playlists)[isNaN(m.content) ? pl.map(p => p.toLowerCase()).indexOf(m.content.toLowerCase()) : (parseInt(m.content) - 1)]]);
+			console.log(playlists[Object.keys(playlists)[playlist]]);
+			addSongs(client, message, playlists[Object.keys(playlists)[playlist]]);
 		}
 	}
 };
