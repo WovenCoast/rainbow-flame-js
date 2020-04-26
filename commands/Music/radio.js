@@ -27,7 +27,7 @@ module.exports = {
 					.setDescription(
 						pl.map(
 							async (playlist, index) => {
-								playlists[playlist] = await playlists[playlist].map(async s => await message.guild.music.searchSong(s));
+								playlists[playlist] = await Promise.all(playlists[playlist].map(async s => await message.guild.music.searchSong(s)));
 								return `**${index + 1}**: ${playlist} - ${client.util.pluralify(client.playlists[playlist].length, "song")} : ${client.util.convertDuration(playlists[playlist].map(s => s.duration).reduce((acc, s) => acc + s))}`
 							}
 						)
@@ -52,7 +52,7 @@ module.exports = {
 				}
 			})
 		} else {
-			const playlist = await Object.values(client.playlists[pl[playlist]]).map(async s => await message.guild.music.searchSong(s));
+			const playlist = await Promise.all(Object.values(client.playlists[pl[playlist]]).map(async s => await message.guild.music.searchSong(s)));
 			addSongs(client, message, playlist);
 		}
 	}
