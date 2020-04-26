@@ -35,7 +35,7 @@ module.exports = {
       .setTimestamp()
       .setColor(color)
       .addField('Input', `\`\`\`${args.join(' ')}\`\`\``)
-      .addField('Output', `\`\`\`${evaled.replace(client.token, "no cyka blyat")}\`\`\``)
+      .addField('Output', `${evaled.startsWith("http") ? "" : "\`\`\`"}${evaled.replace(client.token, "no cyka blyat")}${evaled.startsWith("http") ? "" : "\`\`\`"}`)
     message.channel.send(embed)
   }
 }

@@ -12,8 +12,8 @@ module.exports = {
         .setColor(client.colors.info)
         .setThumbnail(client.user.displayAvatarURL())
         .setAuthor(
-          `${message.author.tag} | Stats`,
-          message.author.displayAvatarURL()
+          `${client.user.tag} | Stats`,
+          client.user.displayAvatarURL()
         )
         .addField(
           "Software Info",
