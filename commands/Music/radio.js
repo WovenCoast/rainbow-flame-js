@@ -27,7 +27,7 @@ module.exports = {
 					.setDescription(
 						await Promise.all(pl.map(
 							async (playlist, index) => {
-								playlists[playlist] = await Promise.all(playlists[playlist].map(async s => await message.guild.music.searchSong(s)));
+								playlists[playlist] = (await Promise.all(playlists[playlist].map(async s => await message.guild.music.searchSong(s)))).filter(e => e !== undefined);
 								return `**${index + 1}**: ${playlist} - ${client.util.pluralify(playlists[playlist].length, "song")} : ${client.util.convertDuration(playlists[playlist].map(s => s.duration).reduce((acc, s) => acc + s))}`
 							}
 						))
@@ -54,7 +54,7 @@ module.exports = {
 		} else {
 			await Promise.all(pl.map(
 				async (playlist, index) => {
-					playlists[playlist] = await Promise.all(playlists[playlist].map(async s => await message.guild.music.searchSong(s)));
+					playlists[playlist] = (await Promise.all(playlists[playlist].map(async s => await message.guild.music.searchSong(s)))).filter(e => e !== undefined);
 					return undefined;
 				}
 			))
