@@ -25,12 +25,12 @@ module.exports = {
 					.setColor(client.colors.info)
 					.setFooter(`Reply in 30 seconds with the option you choose, use ${cancelKeywords.map(c => `\`${c}\``).join(", ")} to cancel!`)
 					.setDescription(
-						pl.map(
+						await Promise.all(pl.map(
 							async (playlist, index) => {
 								playlists[playlist] = await Promise.all(playlists[playlist].map(async s => await message.guild.music.searchSong(s)));
 								return `**${index + 1}**: ${playlist} - ${client.util.pluralify(client.playlists[playlist].length, "song")} : ${client.util.convertDuration(playlists[playlist].map(s => s.duration).reduce((acc, s) => acc + s))}`
 							}
-						)
+						))
 					)
 			);
 			const collector = message.channel.createMessageCollector(
@@ -52,8 +52,7 @@ module.exports = {
 				}
 			})
 		} else {
-			const playlist = await Promise.all(Object.values(client.playlists[pl[playlist]]).map(async s => await message.guild.music.searchSong(s)));
-			addSongs(client, message, playlist);
+			addSongs(client, message, await Promise.all(Object.values(client.playlists[pl[playlist]]).map(async s => await message.guild.music.searchSong(s))));
 		}
 	}
 };
