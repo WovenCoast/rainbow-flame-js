@@ -12,7 +12,8 @@ module.exports = {
 		if (!message.member.voice.channel)
 			throw new Error("You are not in a voice channel!");
 		let pl = Object.keys(client.playlists);
-		const playlist = Object.keys(client.playlists).map(p => p.toLowerCase()).indexOf(args.join(" ").toLowerCase());
+		const playlists = Object.assign({}, client.playlists);
+		const playlist = Object.keys(playlists).map(p => p.toLowerCase()).indexOf(args.join(" ").toLowerCase());
 		if (playlist === -1) {
 			const requestMsg = await message.channel.send(
 				new Discord.MessageEmbed()
@@ -25,8 +26,10 @@ module.exports = {
 					.setFooter(`Reply in 30 seconds with the option you choose, use ${cancelKeywords.map(c => `\`${c}\``).join(", ")} to cancel!`)
 					.setDescription(
 						pl.map(
-							(playlist, index) =>
-								`**${index + 1}**: ${playlist} - ${client.util.pluralify(client.playlists[playlist].length, "song")} : ${client.util.convertDuration(client.playlists[playlist].map(s => s.duration).reduce((acc, s) => acc + s))}`
+							async (playlist, index) => {
+								playlists[playlist] = await playlists[playlist].map(async s => await message.guild.music.searchSong(s));
+								return `**${index + 1}**: ${playlist} - ${client.util.pluralify(client.playlists[playlist].length, "song")} : ${client.util.convertDuration(playlists[playlist].map(s => s.duration).reduce((acc, s) => acc + s))}`
+							}
 						)
 					)
 			);
@@ -39,7 +42,7 @@ module.exports = {
 				requestMsg.delete();
 				m.delete();
 				if (cancelKeywords.includes(m.content.toLowerCase())) return message.channel.send("Aborted");
-				addSongs(client, message, client.playlists[Object.keys(client.playlists)[isNaN(m.content) ? pl.map(p => p.toLowerCase()).indexOf(m.content.toLowerCase()) : (parseInt(m.content) - 1)]]);
+				addSongs(client, message, playlists[Object.keys(client.playlists)[isNaN(m.content) ? pl.map(p => p.toLowerCase()).indexOf(m.content.toLowerCase()) : (parseInt(m.content) - 1)]]);
 			});
 			collector.once("end", (messages) => {
 				if (!collected) {
@@ -49,18 +52,17 @@ module.exports = {
 				}
 			})
 		} else {
-			addSongs(client, message, Object.values(client.playlists[pl[playlist]]));
+			const playlist = await Object.values(client.playlists[pl[playlist]]).map(async s => await message.guild.music.searchSong(s));
+			addSongs(client, message, playlist);
 		}
 	}
 };
 
 async function addSongs(client, message, songs) {
 	const start = client.util.randomValue(0, songs.length);
-	const song = await message.guild.music.searchSong(songs[start]);
-	await message.guild.music.startPlaying(song, message.author, message.channel, message.member.voice.channel);
-	songs.forEach(async (_s, index) => {
+	await message.guild.music.startPlaying(songs[start], message.author, message.channel, message.member.voice.channel);
+	songs.forEach(async (s, index) => {
 		if (index === start) return;
-		const s = await message.guild.music.searchSong(_s);
 		s.requestedBy = message.author.tag;
 		message.guild.music.songs.push(s);
 	});
