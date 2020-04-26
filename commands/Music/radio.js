@@ -52,7 +52,13 @@ module.exports = {
 				}
 			})
 		} else {
-			addSongs(client, message, await Promise.all(Object.values(playlists[pl[playlist]]).map(async s => await message.guild.music.searchSong(s))));
+			await Promise.all(pl.map(
+				async (playlist, index) => {
+					playlists[playlist] = await Promise.all(playlists[playlist].map(async s => await message.guild.music.searchSong(s)));
+					return undefined;
+				}
+			))
+			addSongs(client, message, playlists[Object.keys(playlists)[isNaN(m.content) ? pl.map(p => p.toLowerCase()).indexOf(m.content.toLowerCase()) : (parseInt(m.content) - 1)]]);
 		}
 	}
 };
