@@ -7,11 +7,7 @@ module.exports = {
     if (isNaN(args[0]))
       throw new Error(`\`${args[0]}\` is not a valid amount!`);
     return message.channel.send(
-      args
-        .slice(1, args.length)
-        .join(" ")
-        .map(s => s + "\n")
-        .repeat(parseInt(args[0]))
+      (args.slice(1, args.length).join(" ") + "\n").repeat(parseInt(args[0]))
     );
   }
 };
