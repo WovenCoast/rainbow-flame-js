@@ -7,6 +7,7 @@ module.exports = {
 	async exec(client, message, args) {
 		if (!client.owners.includes(message.author.id)) throw new Error("You don't have enough permissions to restart me");
 		await message.channel.send("Pulling from git...");
+		await client.db.client.set(client.user.id, "restartTimestamp", Date.now());
 		await childProcess.exec("git pull && npm i", async (err, stdout, stderr) => {
 			if (err) await message.channel.send(`Something went wrong:-\`\`\`${stderr}\`\`\`Restarting anyways...`);
 			await client.db.client.set(client.user.id, "commandsExec", client.commandStatus.exec);
@@ -14,7 +15,6 @@ module.exports = {
 			await client.db.client.set(client.user.id, "commandsFail", client.commandStatus.fail);
 			await client.db.client.set(client.user.id, "restartInvokedChannel", message.channel.id);
 			await message.channel.send("Restarting...");
-			await client.db.client.set(client.user.id, "restartTimestamp", Date.now());
 			process.exit(0);
 		});
 	}

@@ -52,6 +52,7 @@ module.exports = {
 				}
 			})
 		} else {
+			if ((message.guild.music.songs.length + songs.length) > message.guild.music.queueLimit) return message.channel.send(`:octagonal_sign: You cannot add a playlist that will make the queue bigger than its limit of ${message.guild.music.queueLimit} songs!`);
 			await Promise.all(pl.map(
 				async (playlist, index) => {
 					playlists[playlist] = (await Promise.all(playlists[playlist].map(async s => await message.guild.music.searchSong(s)))).filter(e => e !== undefined);

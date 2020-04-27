@@ -24,9 +24,11 @@ module.exports = {
   async exec(client, message, args) {
     message.channel.startTyping();
     const subreddit = subreddits[client.util.randomValue(0, subreddits.length)];
-    const data = (await axios.get(
-      `https://www.reddit.com/r/${subreddit}.json?sort=top&t=day&limit=50`
-    )).data.data;
+    const data = (
+      await axios.get(
+        `https://www.reddit.com/r/${subreddit}.json?sort=top&t=day&limit=50`
+      )
+    ).data.data;
     const safeMemes = data.children.filter(d => !d.data.over_18);
     const randomMeme =
       safeMemes[client.util.randomValue(0, safeMemes.length)].data;

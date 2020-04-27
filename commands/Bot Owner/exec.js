@@ -11,8 +11,10 @@ module.exports = {
 		if (!args.join(' ')) {
 			return message.channel.send('Nothing to be executed')
 		}
+		const start = Date.now();
 		childProcess.exec(args.join(" "), { windowsHide: true, cwd: require.main.path }, (err, stdout, stderr) => {
-			const embed = new Discord.MessageEmbed().setTimestamp().setAuthor(`${message.author.tag} | Exec`, message.author.displayAvatarURL({ dynamic: true })).addField("Input", `\`\`\`${args.join(" ")}\`\`\``);
+			const millis = Date.now() - start;
+			const embed = new Discord.MessageEmbed().setTimestamp().setFooter(`Executed in ${client.util.convertMs(millis)} (${millis}ms)`).setAuthor(`${message.author.tag} | Exec`, message.author.displayAvatarURL({ dynamic: true })).addField("Input", `\`\`\`${args.join(" ")}\`\`\``);
 			if (err) {
 				embed.setColor(client.colors.error).setTitle("Something went terribly wrong.....").addField("Error", `\`\`\`${stderr}\`\`\``);
 			} else {

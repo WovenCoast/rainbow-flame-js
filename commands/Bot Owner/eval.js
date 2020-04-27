@@ -15,8 +15,11 @@ module.exports = {
     }
     var evaled;
     let color = client.colors.info;
+    let millis = 0;
+    const start = Date.now();
     try {
       evaled = eval(args.join(' '));
+      millis = Date.now() - start;
       if (evaled instanceof Promise) evaled = await evaled;
       if (typeof evaled != "string") {
         evaled = util.inspect(evaled);
@@ -31,11 +34,12 @@ module.exports = {
       }
       color = client.colors.error;
     }
-    var embed = new Discord.MessageEmbed()
+    message.channel.send(new Discord.MessageEmbed()
       .setTimestamp()
       .setColor(color)
+      .setFooter(`Evaluated in ${client.util.convertMs(millis)} (${millis}ms)`)
+      .setAuthor(`${message.author.id} | Eval`)
       .addField('Input', `\`\`\`${args.join(' ')}\`\`\``)
-      .addField('Output', `${evaled.startsWith("http") ? "" : "\`\`\`"}${evaled.replace(client.token, "no cyka blyat")}${evaled.startsWith("http") ? "" : "\`\`\`"}`)
-    message.channel.send(embed)
+      .addField('Output', `${evaled.startsWith("http") ? "" : "\`\`\`"}${evaled.replace(client.token, "no cyka blyat")}${evaled.startsWith("http") ? "" : "\`\`\`"}`))
   }
 }
