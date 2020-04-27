@@ -1,30 +1,51 @@
-require('dotenv').config();
-const { Client } = require('./lib/all');
-const schemas = require('./schemas.json');
-const playlists = require('./playlists.json');
-const { version } = require('./package.json');
-const client = new Client({
-  token: process.env.DISCORD_TOKEN,
-  owners: ["502446928303226890"],
-  version,
-  cooldown: 2,
-  colors: {
-    scheme: ['#FF9AA2', '#FFB7B2', '#FFDAC1', '#E2F0CB', '#B5EAD7', '#C7CEEA'],
-    info: "#92DFF3",
-    error: '#FF9AA2',
-    success: '#B5EAD7'
+require("dotenv").config();
+const { Client } = require("./lib/all");
+const schemas = require("./schemas.json");
+const playlists = require("./playlists.json");
+const { version } = require("./package.json");
+const client = new Client(
+  {
+    token: process.env.DISCORD_TOKEN,
+    owners: ["502446928303226890"],
+    version,
+    cooldown: 2,
+    colors: {
+      scheme: [
+        "#FF9AA2",
+        "#FFB7B2",
+        "#FFDAC1",
+        "#E2F0CB",
+        "#B5EAD7",
+        "#C7CEEA"
+      ],
+      info: "#92DFF3",
+      error: "#FF9AA2",
+      success: "#B5EAD7"
+    },
+    prefix: ["rf.", "rf ", "rf!", "rf>", ">rf ", "rf-", "-rf", "*rf ", "rf*"],
+    presences: [
+      client => `${client.util.pluralify(client.users.cache.size, "user")}!`,
+      client =>
+        `${client.util.pluralify(
+          client.users.cache.filter(u => u.bot).size,
+          "bot"
+        )}`,
+      client =>
+        `${client.util.pluralify(
+          client.users.cache.filter(u => !u.bot).size,
+          "human"
+        )}`,
+      client =>
+        `${client.util.pluralify(client.channels.cache.size, "channel")}!`,
+      client => `${client.util.pluralify(client.guilds.cache.size, "guild")}!`
+    ],
+    schemas,
+    playlists,
+    commands: "./commands",
+    events: "./events"
   },
-  prefix: ["rf.", "rf ", "rf!", "rf>", ">rf ", "rf-", "-rf", "*rf ", "rf*"],
-  presences: [
-    (client) => `${client.util.pluralify(client.users.cache.size, "user")}!`,
-    (client) => `${client.util.pluralify(client.channels.cache.size, "channel")}!`,
-    (client) => `${client.util.pluralify(client.guilds.cache.size, "guild")}!`
-  ],
-  schemas,
-  playlists,
-  commands: './commands',
-  events: './events'
-}, {});
+  {}
+);
 client.login();
 const express = require("express");
 const fetch = require("node-fetch");
@@ -68,21 +89,21 @@ const requireAuth = (req, res, next) => {
     next();
   }
 };
-const domain = "https://rainbowflame.glitch.me"
+const domain = "https://rainbowflame.glitch.me";
 
 app.get("/", (req, res) => {
   res.render("index.ejs");
 });
-app.get("/dashboard"/*, requireAuth*/, (req, res) => {
+app.get("/dashboard" /*, requireAuth*/, (req, res) => {
   res.render("dashboard.ejs");
 });
 app.get("/api/discord/login", (req, res) => {
   if (req.session.accessToken) {
-    res.redirect(domain + '/dashboard');
+    res.redirect(domain + "/dashboard");
   } else {
     res.redirect(
       `https://discordapp.com/api/oauth2/authorize?client_id=${
-      process.env.CLIENT_ID
+        process.env.CLIENT_ID
       }&scope=${encodeURIComponent(
         "identify email guilds"
       )}&response_type=code&redirect_uri=${encodeURIComponent(
@@ -97,7 +118,8 @@ app.get(
     if (!req.query.code) throw new Error("NoCodeProvided");
     const code = req.query.code;
     const response = await fetch(
-      `https://discordapp.com/api/oauth2/token?grant_type=authorization_code&code=${code}&redirect_uri=${domain + "/api/discord/callback"}`,
+      `https://discordapp.com/api/oauth2/token?grant_type=authorization_code&code=${code}&redirect_uri=${domain +
+        "/api/discord/callback"}`,
       {
         method: "POST",
         headers: {
@@ -133,7 +155,7 @@ app.get(
     req.session.user.guilds = guildData.filter(
       g => !!client.guilds.resolve(g.id)
     );
-    res.redirect(domain + '/dashboard');
+    res.redirect(domain + "/dashboard");
   })
 );
 
@@ -141,5 +163,4 @@ const listener = app.listen(process.env.PORT, () => {
   console.log("Your app is listening on port " + listener.address().port);
 });
 
-
-// Great Job you have successfully reached the end of this file! Kudos to you and your eyes. Still didn't find the bug, dw you will find it soon! 
+// Great Job you have successfully reached the end of this file! Kudos to you and your eyes. Still didn't find the bug, dw you will find it soon!
