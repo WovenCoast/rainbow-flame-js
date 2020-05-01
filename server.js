@@ -19,8 +19,8 @@ const client = new Client(
         "#C7CEEA"
       ],
       info: "#92DFF3",
-      error: "#FF9AA2",
-      success: "#B5EAD7"
+      error: "#FF9AA2", // 1st color in the scheme
+      success: "#B5EAD7" // 5th color in the scheme
     },
     prefix: ["rf.", "rf ", "rf!", "rf>", ">rf ", "rf-", "-rf", "*rf ", "rf*"],
     presences: [
