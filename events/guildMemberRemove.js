@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 
 module.exports = {
-  name: "guildMemberAdd",
+  name: "guildMemberRemove",
   async exec(client, member) {
     const leaveMessages = (await client.db.guild.get(member.guild.id, "leaveMessages"));
     const memberLogChannel = await client.db.guild.get(member.guild.id, "memberLogs");
