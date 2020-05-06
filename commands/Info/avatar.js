@@ -6,9 +6,9 @@ module.exports = {
   desc: "Sends the avatar of the user mentioned",
   async exec(client, message, args) {
     const user = client.util.parseUser(args.join(" "));
-    if(user == null){
-        user = message.user;
-    }   
+    if (user == null) {
+      user = message.author;
+    }
     return message.channel.send(
       new Discord.MessageEmbed()
         .setImage(user.displayAvatarURL({ dynamic: true }))
