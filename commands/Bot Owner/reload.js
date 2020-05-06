@@ -18,9 +18,11 @@ module.exports = {
       async (err, stdout, stderr) => {
         if (err)
           await message.channel.send(
-            `Something went wrong:-\`\`\`${stderr}\`\`\`Restarting anyways...`
+            `Something went wrong:-\`\`\`${stderr}\`\`\`Reloading anyways...`
           );
-
+        await message.channel.send(
+          "Removing cache and resetting parameters..."
+        );
         client.commands.forEach((command) => {
           delete require.cache[
             require.resolve(
@@ -36,6 +38,7 @@ module.exports = {
         client.removeAllListeners();
         client.commands = new Discord.Collection();
         client.aliases = new Discord.Collection();
+        await message.channel.send("Resolving cache...");
         client._readCommands(client.customOptions.commands);
         client._readEvents(client.customOptions.events);
         const millis = Date.now() - start;
