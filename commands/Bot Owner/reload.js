@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const path = require('path');
+const childProcess = require("child_process");
 
 module.exports = {
 	name: "reload",
