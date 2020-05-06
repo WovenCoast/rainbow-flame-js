@@ -1,6 +1,6 @@
 
 const Discord = require("discord.js");
-const fetch = require("fetch");
+const fetch = require("node-fetch");
 module.exports = {
     name: "gif",
     aliases: [],
