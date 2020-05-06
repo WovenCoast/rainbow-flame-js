@@ -6,7 +6,7 @@ const { version } = require("./package.json");
 const client = new Client(
   {
     token: process.env.DISCORD_TOKEN,
-    owners: ["502446928303226890"],
+    owners: ["502446928303226890","511518299201470465"],
     version,
     cooldown: 2,
     colors: {
