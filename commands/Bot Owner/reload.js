@@ -12,6 +12,7 @@ module.exports = {
         "You don't have enough permissions to reload my commands"
       );
     const start = Date.now();
+    await message.channel.send("Pulling from git...");
     await childProcess.exec(
       "git pull && npm i",
       async (err, stdout, stderr) => {
