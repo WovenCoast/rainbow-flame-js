@@ -5,7 +5,7 @@ module.exports = {
   aliases: [],
   desc: "Sends the avatar of the user mentioned",
   async exec(client, message, args) {
-    const user = client.util.parseUser(args.join(" "));
+    let user = client.util.parseUser(args.join(" "));
     if (user == null) {
       user = message.author;
     }
