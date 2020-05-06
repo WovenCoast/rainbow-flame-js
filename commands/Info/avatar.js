@@ -14,8 +14,8 @@ module.exports = {
         .setImage(user.displayAvatarURL({ dynamic: true }))
         .setColor(client.colors.info)
         .setAuthor(`${user.tag} | Avatar`)
-        .setTitle(
-          `(Download Avatar)[${user.displayAvatarURL({ dynamic: true })}]`
+        .setDescription(
+          `[Download Avatar](${user.displayAvatarURL({ dynamic: true })})`
         )
     );
   },
