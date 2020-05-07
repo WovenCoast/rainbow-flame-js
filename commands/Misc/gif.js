@@ -7,8 +7,8 @@ module.exports = {
     desc: "Sends a gif",
     async exec(client, message, args) {
         fetch(`https://api.tenor.com/v1/random?key=LJIHBE2W7RAB&q=${args}&limit=1`)
-        res => res.json()
-        message.say(res.json.results[0].url)
+        .then(res => res.json())
+        .then(json => message.say(json.results[0].url));
         return;
     }
 }
