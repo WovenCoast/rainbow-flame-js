@@ -23,7 +23,7 @@
     "node-fetch": "^2.6.0",
     "opusscript": "0.0.7",
     "sql": "^0.78.0",
-    "sqlite3": "^4.1.1",
+    "sqlite3": "^4.2.0",
     "tinyurl": "^1.1.5",
     "utf-8-validate": "^5.0.2",
     "yandex-translate": "^2.1.3",
