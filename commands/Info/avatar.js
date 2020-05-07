@@ -5,17 +5,17 @@ module.exports = {
   aliases: [],
   desc: "Sends the avatar of the user mentioned",
   async exec(client, message, args) {
-    let user = client.util.parseUser(args.join(" "));
-    if (user == null) {
-      user = message.author;
-    }
+    const user = client.util.parseUser(args.join(" "));
+    if(user == null){
+        user = message.user;
+    }   
     return message.channel.send(
       new Discord.MessageEmbed()
         .setImage(user.displayAvatarURL({ dynamic: true }))
         .setColor(client.colors.info)
         .setAuthor(`${user.tag} | Avatar`)
-        .setDescription(
-          `[Download Avatar](${user.displayAvatarURL({ dynamic: true })})`
+        .setTitle(
+          `(Download Avatar)[${user.displayAvatarURL({ dynamic: true })}]`
         )
     );
   },
