@@ -9,7 +9,7 @@ module.exports = {
 	async exec(client, message, args) {
 		const res = await search(args.join(" "));
 		const info = await ytdl.getInfo(res.videos[0].videoId)
-		const format = ytdl.chooseFormat(info.formats.mp3, 'audioonly');
+		const format = ytdl.chooseFormat(info.formats, 'audioonly');
 		if (format) {
 			const shortenedUrl = await tinyurl.shorten(format.url);
 			message.channel.send(`*${info.title}* by **${info.author.name}**: <${shortenedUrl}>`);
