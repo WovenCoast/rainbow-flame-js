@@ -10,7 +10,7 @@ module.exports = {
       new Discord.MessageEmbed()
         .setImage(user.displayAvatarURL({ dynamic: true }))
         .setColor(client.colors.info)
-        .setAuthor(`${user.tag} | Avatar`)
+        .setAuthor(`${user.tag} | Avatar`, user.displayAvatarURL({ dynamic: true }))
         .setDescription(
           `[Download Avatar](${user.displayAvatarURL({ dynamic: true })})`
         )

@@ -3,6 +3,7 @@ const { Client } = require("./lib/all");
 const schemas = require("./schemas.json");
 const playlists = require("./playlists.json");
 const { version } = require("./package.json");
+const prefix = process.env.PREFIX;
 const client = new Client(
   {
     token: process.env.DISCORD_TOKEN,
@@ -22,7 +23,7 @@ const client = new Client(
       error: "#FF9AA2", // 1st color in the scheme
       success: "#B5EAD7" // 5th color in the scheme
     },
-    prefix: ["rf.", "rf ", "rf!", "rf>", ">rf ", "rf-", "-rf", "*rf ", "rf*"],
+    prefix: [`${prefix}.`, `${prefix} `, `${prefix}!`, `${prefix}>`, `>${prefix} `, `${prefix}-`, `-${prefix}`, `*${prefix} `, `${prefix}*`],
     presences: [
       client => `${client.util.pluralify(client.users.cache.size, "user")}!`,
       client =>
