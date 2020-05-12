@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 
 module.exports = {
   name: "purge",
-  aliases: [],
+  aliases: ["prune"],
   desc: "Purge a certain amount of messages from a channel",
   async exec(client, message, args) {
     if (!message.member.hasPermission(["MANAGE_MESSAGES"]))
