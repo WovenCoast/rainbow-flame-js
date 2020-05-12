@@ -8,7 +8,7 @@ module.exports = {
       throw new Error(`\`${args[0]}\` is not a valid amount!`);
     if (parseInt(args[0]) > 1000 || parseInt(args[0]) < 0)
       throw new Error("You need to specify a value between 0 and 1000!");
-    const x = args.slice(1, args.length).join(" ").length;
+    const x = args.slice(1, args.length).join(" ").length + 1;
     if (
       !message.member.hasPermission("MANAGE_MESSAGES") &&
       parseInt(args[0]) > 50
@@ -21,7 +21,7 @@ module.exports = {
     );
     return await Promise.all(
       client.util
-        .chunk(Math.ceil((1900 / (x - 1)) * x) + 1, str)
+        .chunk(Math.ceil((1900 / (x - 1)) * x), str)
         .map((s) => message.channel.send(s))
     );
   },
