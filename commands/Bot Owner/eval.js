@@ -28,10 +28,10 @@ module.exports = {
         evaled = util.inspect(evaled);
       }
       if (evaled.length > 1024) {
-        evaled = await haste(evaled.replace(client.token, "no cyka blyat"), {
+        evaled = await haste(client.util.sanitize(evaled), {
           url: "http://haste.wovencoast.me",
-          extension: "log"
-        }).catch(err => {
+          extension: "log",
+        }).catch((err) => {
           throw err;
         });
       }
@@ -56,11 +56,10 @@ module.exports = {
         .addField("Input", `\`\`\`${args.join(" ")}\`\`\``)
         .addField(
           "Output",
-          `${evaled.startsWith("http") ? "" : "```"}${evaled.replace(
-            client.token,
-            "no cyka blyat"
+          `${evaled.startsWith("http") ? "" : "```"}${client.util.sanitize(
+            evaled
           )}${evaled.startsWith("http") ? "" : "```"}`
         )
     );
-  }
+  },
 };
