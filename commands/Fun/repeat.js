@@ -21,13 +21,7 @@ module.exports = {
     );
     return await Promise.all(
       client.util
-        .chunk(
-          (2000 /* The maximum amount of characters allowed in one message */ /
-            (x - 1)) *
-            x +
-            1 /* The extra space after the message */,
-          str
-        )
+        .chunk((2000 / (x - 1)) * x + 1, str)
         .map((s) => message.channel.send(s))
     );
   },
