@@ -21,7 +21,7 @@ module.exports = {
     );
     return await Promise.all(
       client.util
-        .chunk(Math.floor((1900 / (x - 1)) * x + 1), str)
+        .chunk(Math.floor((1900 / (x - 1)) * x) + 1, str)
         .map((s) => message.channel.send(s))
     );
   },
