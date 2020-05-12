@@ -19,9 +19,16 @@ module.exports = {
     const str = (args.slice(1, args.length).join(" ") + " ").repeat(
       parseInt(args[0])
     );
-    const y = 2000;
     return await Promise.all(
-      client.util.chunk((y / x - 1) * x, str).map(s => message.channel.send(s))
+      client.util
+        .chunk(
+          (2000 /* The maximum amount of characters allowed in one message */ /
+            (x - 1)) *
+            x +
+            1 /* The extra space after the message */,
+          str
+        )
+        .map((s) => message.channel.send(s))
     );
-  }
+  },
 };
