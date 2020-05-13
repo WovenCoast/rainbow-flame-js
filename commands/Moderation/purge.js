@@ -15,7 +15,9 @@ module.exports = {
       throw new Error("You need to give a number value of messages to delete!");
     const messages = await message.channel.bulkDelete(parseInt(args[0]) + 1);
     const msg = await message.channel.send(
-      `:white_check_mark: Successfully purged **${messages.size}** messages!`
+      `:white_check_mark: Successfully purged **${
+        messages.size - 1
+      }** messages!`
     );
     await client.util.delay(2000);
     return msg.delete();
