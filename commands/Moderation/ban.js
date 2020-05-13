@@ -1,8 +1,15 @@
+const Discord = require('discord.js');
+
 module.exports = {
 	name: "ban",
 	aliases: ["exile"],
-	desc: "Send a link from which you can download the audio from a YouTube video",
+	desc: "BAN!!!!!!",
 	async exec(client, message, args) {
-		
+		let banuser=args[0]
+		user.ban(banuser);
+		const banEmbed = new Discord()
+			.addField('Banned:', banuser)
+			.setColor('#420626');
+		message.channel.send(banEmbed);
 	}
 }
