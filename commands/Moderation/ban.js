@@ -7,10 +7,10 @@ module.exports = {
 	async exec(client, message, args) {
 		let banuser=args[0]
 		message.channel.send("hi")
-		ban(banuser);
-		/*const banEmbed = new Discord()
+		member.ban(banuser);
+		const banEmbed = new Discord.MessageEmbed()
 			.addField('Banned:', banuser)
 			.setColor('#420626');
-		message.channel.send(banEmbed);*/
+		message.channel.send(banEmbed);
 	}
 }
