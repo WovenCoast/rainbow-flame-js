@@ -5,8 +5,8 @@ module.exports = {
 	aliases: ["exile"],
 	desc: "BAN!!!!!!",
 	async exec(client, message, args) {
-		let banuser=args[0]
-		Discord.Message.channel.send(banuser)
+		//let banuser=args[0]
+		message.channel.send("hi")
 		/*user.ban(banuser);
 		const banEmbed = new Discord()
 			.addField('Banned:', banuser)
