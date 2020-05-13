@@ -6,10 +6,11 @@ module.exports = {
 	desc: "BAN!!!!!!",
 	async exec(client, message, args) {
 		let banuser=args[0]
-		user.ban(banuser);
+		Discord.Message.channel.send(banuser)
+		/*user.ban(banuser);
 		const banEmbed = new Discord()
 			.addField('Banned:', banuser)
 			.setColor('#420626');
-		message.channel.send(banEmbed);
+		message.channel.send(banEmbed);*/
 	}
 }
