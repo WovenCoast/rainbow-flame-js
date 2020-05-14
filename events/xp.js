@@ -9,10 +9,11 @@ module.exports = {
    * @param {EnhancedMessage} message
    */
   async exec(client, message) {
+    if (message.author.bot) return;
     if (!(client.randomValue(0, 100) > 30)) return; // Has a 60% rate of returning
-    const currentLevel = message.member.db.get("level");
+    const currentLevel = await message.member.db.get("level");
     const xpForNextLevel = currentLevel * 150;
-    const oldXp = message.member.db.get("xp");
+    const oldXp = await message.member.db.get("xp");
     const newXp = oldXp + client.util.randomValue(2, 5);
     if (newXp >= xpForNextLevel) {
       message.channel.send(
@@ -25,10 +26,10 @@ module.exports = {
           )
           .setDescription(`You just levelled upto ${currentLevel + 1}!`)
       );
-      message.member.db.set("xp", 0, true);
-      message.member.db.set("level", currentLevel + 1, true);
+      await message.member.db.set("xp", 0, true);
+      await message.member.db.set("level", currentLevel + 1, true);
     } else {
-      message.member.db.set("xp", newXp, true);
+      await message.member.db.set("xp", newXp, true);
     }
   },
 };

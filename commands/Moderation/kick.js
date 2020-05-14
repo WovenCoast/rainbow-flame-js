@@ -4,6 +4,7 @@ module.exports = {
   name: "kick",
   aliases: ["getout"],
   desc: "KICK!!!!!!!",
+  usage: "{prefix}kick <victim:member> [reason:string]",
   async exec(client, message, args) {
     const reason = args.slice(1).join(" ") || "No reason at all";
     const member = client.util.parseMember(message.guild, args[0]);

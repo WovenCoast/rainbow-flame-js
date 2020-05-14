@@ -5,6 +5,7 @@ module.exports = {
   name: "ban",
   aliases: ["exile"],
   desc: "BAN HAMMER!!!!!!",
+  usage: "{prefix}ban <victim:member> <duration:time> [reason:string]",
   async exec(client, message, args) {
     const reason = args.slice(2).join(" ") || "No reason at all";
     const ms = Math.round(moment() - moment().relativeTime("-" + args[1]));
