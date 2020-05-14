@@ -25,7 +25,7 @@ module.exports = {
           message.author.displayAvatarURL({ dynamic: true })
         )
         .setDescription(
-          `XP: **${xp}xp**\nLevel **${level}**\n\n${level} ${progressBar} ${
+          `${member}'s XP: **${xp}xp**\nLevel **${level}**\n\n${level} ${progressBar} ${
             level + 1
           }`
         )
