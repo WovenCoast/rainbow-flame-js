@@ -15,7 +15,16 @@ module.exports = {
     const oldXp = message.member.db.get("xp");
     const newXp = oldXp + client.util.randomValue(2, 5);
     if (newXp >= xpForNextLevel) {
-      // Level up
+      message.channel.send(
+        new Discord.MessageEmbed()
+          .setTimestamp()
+          .setColor(client.colors.success)
+          .setAuthor(
+            `${message.author.tag} | Level Up!`,
+            message.author.displayAvatarURL({ dynamic: true })
+          )
+          .setDescription(`You just levelled upto ${currentLevel + 1}!`)
+      );
       message.member.db.set("xp", 0, true);
       message.member.db.set("level", currentLevel + 1, true);
     } else {

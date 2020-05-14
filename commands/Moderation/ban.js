@@ -24,7 +24,7 @@ module.exports = {
         .setTimestamp()
         .setColor(client.colors.info)
         .setAuthor(`${message.author.tag} | Ban Hammer`)
-        .setTitle(`Banned ${member.user.tag}`)
+        .setDescription(`Banned ${member.user.tag}`)
         .addField("Reason", reason)
         .addField("Duration", client.util.convertMs(ms))
     );
