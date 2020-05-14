@@ -1,16 +1,10 @@
 const Discord = require("discord.js");
-const Client = require("../lib/Client");
-const EnhancedMessage = require("../lib/Message");
 
 module.exports = {
   name: "message",
-  /**
-   * @param {Client} client
-   * @param {EnhancedMessage} message
-   */
   async exec(client, message) {
     if (message.author.bot) return;
-    if (client.randomValue(0, 100) > 40) return; // Has a 60% rate of returning
+    // if (client.randomValue(0, 100) > 40) return; // Has a 60% rate of returning
     const currentLevel = await message.member.db.get("level");
     const xpForNextLevel = currentLevel * 150;
     const oldXp = await message.member.db.get("xp");
