@@ -5,6 +5,7 @@ module.exports = {
   name: "ban",
   aliases: ["exile"],
   desc: "BAN HAMMER!!!!!!",
+  usage: "{prefix}ban <victim:member> <duration:time> [reason:string]",
   async exec(client, message, args) {
     const reason = args.slice(2).join(" ") || "No reason at all";
     const ms = Math.round(moment() - moment().relativeTime("-" + args[1]));
@@ -24,7 +25,7 @@ module.exports = {
         .setTimestamp()
         .setColor(client.colors.info)
         .setAuthor(`${message.author.tag} | Ban Hammer`)
-        .setTitle(`Banned ${member.user.tag}`)
+        .setDescription(`Banned ${member.user.tag}`)
         .addField("Reason", reason)
         .addField("Duration", client.util.convertMs(ms))
     );

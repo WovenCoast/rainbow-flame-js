@@ -4,6 +4,7 @@ module.exports = {
   name: "purge",
   aliases: ["prune"],
   desc: "Purge a certain amount of messages from a channel",
+  usage: "{prefix}purge <amount:number>",
   async exec(client, message, args) {
     if (!message.member.hasPermission(["MANAGE_MESSAGES"]))
       throw new Error(
