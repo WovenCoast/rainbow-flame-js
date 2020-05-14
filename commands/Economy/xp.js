@@ -13,7 +13,9 @@ module.exports = {
     const level = await member.db.get("level");
     const xp = await member.db.get("xp");
     const xpForNextLevel = level * 150;
-    const progressBar = "•".repeat(xp) + "-".repeat(xpForNextLevel - xp);
+    const progressBar =
+      "•".repeat(Math.ceil(xp / 100)) +
+      "-".repeat(Math.ceil((xpForNextLevel - xp) / 100));
     return message.channel.send(
       new Discord.MessageEmbed()
         .setTimestamp()
