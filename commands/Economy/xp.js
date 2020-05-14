@@ -7,9 +7,9 @@ module.exports = {
   usage: "{prefix}xp [member:string|member:mention]",
   async exec(client, message, args) {
     let member = message.member;
-    if (args[0] && client.util.parseMember(args.join(" ")))
-      member = client.util.parseMember(args.join(" "));
-    if (member.bot) throw new Error("Bots don't have a ranking!");
+    if (args[0] && client.util.parseMember(message.guild, args.join(" ")))
+      member = client.util.parseMember(message.guild, args.join(" "));
+    if (member.user.bot) throw new Error("Bots don't have a ranking!");
     const level = await member.db.get("level");
     const xp = await member.db.get("xp");
     const xpForNextLevel = level * 150;
