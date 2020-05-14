@@ -4,7 +4,7 @@ module.exports = {
   name: "message",
   async exec(client, message) {
     if (message.author.bot) return;
-    if (client.util.randomValue(0, 100) > 40) return; // Has a 60% rate of returning
+    if (client.util.randomValue(0, 100) < 60) return; // Has a 60% rate of returning
     const currentLevel = await message.member.db.get("level");
     const xpForNextLevel = currentLevel * 150;
     const oldXp = await message.member.db.get("xp");
