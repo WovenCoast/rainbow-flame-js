@@ -21,7 +21,7 @@ module.exports = {
         .setTimestamp()
         .setColor(client.colors.info)
         .setAuthor(
-          `${message.author.tag} | Rank`,
+          `${message.user.tag} | Rank`,
           member.user.displayAvatarURL({ dynamic: true })
         )
         .setDescription(
