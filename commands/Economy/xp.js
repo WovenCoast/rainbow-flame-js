@@ -14,21 +14,23 @@ module.exports = {
     const xp = await member.db.get("xp");
     const xpForNextLevel = level * 150;
     const progressBar =
-      "•".repeat(Math.ceil((xp / 100) * 25)) +
-      "-".repeat(Math.ceil(((xpForNextLevel - xp) / 100) * 25));
+        "•".repeat(Math.ceil((xp / 100) * 25)) +
+        "-".repeat(Math.ceil(((xpForNextLevel - xp) / 100) * 25));
     return message.channel.send(
-      new Discord.MessageEmbed()
-        .setTimestamp()
-        .setColor(client.colors.info)
-        .setAuthor(
-          `${message.member.user.tag} | Rank`,
-          member.user.displayAvatarURL({ dynamic: true })
-        )
-        .setDescription(
-          `XP: **${xp}xp**\nXP that needs for the next level: **${xpForNextLevel}xp**\nLevel **${level}**\n\n${level} ${progressBar} ${
-            level + 1
-          }`
-        )
+        new Discord.MessageEmbed()
+            .setTimestamp()
+            .setColor(client.colors.info)
+            .setAuthor(
+                `${message.author.tag} | Rank`,
+                message.author.displayAvatarURL({ dynamic: true })
+            )
+            .setDescription(
+                `${member.user.tag}'s XP: **${xp}xp**\nXP that ${
+                    member.user.tag
+                } needs for the next level: **${xpForNextLevel}xp**\nLevel **${level}**\n\n${level} ${progressBar} ${
+                    level + 1
+                }`
+            )
     );
   },
 };
