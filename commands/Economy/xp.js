@@ -22,12 +22,10 @@ module.exports = {
         .setColor(client.colors.info)
         .setAuthor(
           `${message.author.tag} | Rank`,
-          message.author.displayAvatarURL({ dynamic: true })
+          member.user.displayAvatarURL({ dynamic: true })
         )
         .setDescription(
-          `${member.user.tag}'s XP: **${xp}xp**\nXP that ${
-            member.user.tag
-          } needs for the next level: **${xpForNextLevel}xp**\nLevel **${level}**\n\n${level} ${progressBar} ${
+          `XP: **${xp}xp**\nXP that needs for the next level: **${xpForNextLevel}xp**\nLevel **${level}**\n\n${level} ${progressBar} ${
             level + 1
           }`
         )
