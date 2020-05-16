@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 
 module.exports = {
   name: "nick",
-  aliases: ["getout"],
+  aliases: [],
   desc: "NICK!!!!!!!",
   usage: "{prefix}nick <victim:member> <newNick:string>",
   async exec(client, message, args) {
