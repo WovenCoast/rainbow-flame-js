@@ -13,6 +13,13 @@ module.exports = {
       throw new Error("You don't have enough permissions to nick someone!");
     if (!message.guild.me.hasPermission("MANAGE_NICKNAMES"))
       throw new Error("I don't have enough permissions to nick someone!");
+    if (
+      message.guild.me.roles.highest.comparePositionTo(member.roles.highest) <=
+      -1
+    )
+      throw new Error(
+        "The member you are trying to nick has a higher role than me!"
+      );
     if (!nick) {
       await member.setNickname("");
       return message.channel.send(
