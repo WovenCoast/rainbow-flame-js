@@ -68,6 +68,16 @@
       "type": "int",
       "default": "0",
       "modifiable": false
+    },
+    "xp": {
+      "type": "int",
+      "default": "0",
+      "modifiable": false
+    },
+    "level": {
+      "type": "int",
+      "default": "1",
+      "modifiable": false
     }
   }
 }
