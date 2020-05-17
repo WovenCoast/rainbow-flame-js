@@ -10,16 +10,18 @@ module.exports = {
     const oldXp = await message.member.db.get("xp");
     const newXp = oldXp + client.util.randomValue(2, 5);
     if (newXp >= xpForNextLevel) {
-      message.channel.send(
-        new Discord.MessageEmbed()
-          .setTimestamp()
-          .setColor(client.colors.success)
-          .setAuthor(
-            `${message.author.tag} | Level Up!`,
-            message.author.displayAvatarURL({ dynamic: true })
-          )
-          .setDescription(`You just levelled upto ${currentLevel + 1}!`)
-      );
+      if (await message.guild.db.get("rankUpMsg")) {
+        message.channel.send(
+          new Discord.MessageEmbed()
+            .setTimestamp()
+            .setColor(client.colors.success)
+            .setAuthor(
+              `${message.author.tag} | Level Up!`,
+              message.author.displayAvatarURL({ dynamic: true })
+            )
+            .setDescription(`You just levelled upto ${currentLevel + 1}!`)
+        );
+      }
       await message.member.db.set("xp", 0, true);
       await message.member.db.set("level", currentLevel + 1, true);
     } else {
