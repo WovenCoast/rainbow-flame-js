@@ -15,7 +15,6 @@ module.exports = {
             dynamic: true
           })
         )
-        .addField()
         .addField(
           "Important Things",
           `Guild ID: \`${message.guild.id}\`\nNitro boosts: \`${
