@@ -60,6 +60,12 @@
       "type": "bool",
       "default": true,
       "modifiable": true
+    },
+    "rankUpMsg": {
+      "array": false,
+      "type": "bool",
+      "default": true,
+      "modifiable": true
     }
   },
   "user": {
