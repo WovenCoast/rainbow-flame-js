@@ -64,7 +64,7 @@
     "invalidCommandMsg": {
       "array": false,
       "type": "bool",
-      "default": true,
+      "default": false,
       "modifiable": true
     },
     "rankUpMsg": {
