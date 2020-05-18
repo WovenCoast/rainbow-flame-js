@@ -18,7 +18,7 @@ module.exports = {
           );
         await client.db.client.set(
           client.user.id,
-          "cooldowns",
+          "cooldown",
           JSON.stringify(Array.from(client.cooldown.entries()))
         );
         await client.db.client.set(

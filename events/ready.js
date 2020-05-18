@@ -40,7 +40,7 @@ module.exports = {
       JSON.parse(
         await client.db.client.get(
           client.user.id,
-          "cooldowns",
+          "cooldown",
           JSON.stringify(Array.from(client.cooldown))
         )
       )
@@ -65,7 +65,7 @@ module.exports = {
       );
       await client.db.client.set(client.user.id, "restartTimestamp", 0);
       await client.db.client.set(client.user.id, "restartInvokedChannel", "");
-      await client.db.client.set(client.user.id, "cooldowns", "");
+      await client.db.client.set(client.user.id, "cooldown", "");
     }
   },
 };
