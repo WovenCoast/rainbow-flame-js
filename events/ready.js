@@ -36,12 +36,12 @@ module.exports = {
       "commandsFail",
       client.commandStatus.fail
     );
-    client.cooldowns = Map.from(
+    client.cooldown = Map.from(
       JSON.parse(
         await client.db.client.get(
           client.user.id,
           "cooldowns",
-          JSON.stringify(Array.from(client.cooldowns))
+          JSON.stringify(Array.from(client.cooldown))
         )
       )
     );
