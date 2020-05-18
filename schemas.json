@@ -1,5 +1,11 @@
 {
   "client": {
+    "cooldowns": {
+      "array": false,
+      "type": "string",
+      "default": "",
+      "modifiable": true
+    },
     "commandsExec": {
       "array": false,
       "type": "int",

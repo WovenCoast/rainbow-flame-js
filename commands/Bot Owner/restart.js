@@ -18,6 +18,11 @@ module.exports = {
           );
         await client.db.client.set(
           client.user.id,
+          "cooldowns",
+          JSON.stringify(Array.from(client.cooldowns.entries()))
+        );
+        await client.db.client.set(
+          client.user.id,
           "commandsExec",
           client.commandStatus.exec
         );
@@ -40,5 +45,5 @@ module.exports = {
         process.exit(0);
       }
     );
-  }
+  },
 };
