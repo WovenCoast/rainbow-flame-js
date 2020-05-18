@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-module.exports = {
-  name: "ban",
-  aliases: ["exile", "banhammer"],
-  desc: "Ban a person from this server",
-  async exec(client, message, args) {},
-=======
 const Discord = require("discord.js");
 const moment = require("relative-time-parser");
 
@@ -37,5 +30,4 @@ module.exports = {
         .addField("Duration", client.util.convertMs(ms))
     );
   },
->>>>>>> dev
 };
