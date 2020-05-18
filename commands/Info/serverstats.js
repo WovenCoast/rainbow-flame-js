@@ -12,10 +12,9 @@ module.exports = {
         .setAuthor(
           `${message.guild.name} | Stats`,
           message.guild.iconURL({
-            dynamic: true
+            dynamic: true,
           })
         )
-        .addField()
         .addField(
           "Important Things",
           `Guild ID: \`${message.guild.id}\`\nNitro boosts: \`${
@@ -42,7 +41,7 @@ module.exports = {
                   message.guild.music.songs.length
                 }\`\nTotal duration: \`${client.util.convertDuration(
                   message.guild.music.songs
-                    .map(s => s.duration)
+                    .map((s) => s.duration)
                     .reduce((acc, s) => acc + s)
                 )}\``
               : ""
@@ -53,9 +52,9 @@ module.exports = {
           message.guild.features.length === 0
             ? "Not a partnered guild"
             : message.guild.features
-                .map(f => `\`${client.util.titleCase(f.replace("_", " "))}\``)
+                .map((f) => `\`${client.util.titleCase(f.replace("_", " "))}\``)
                 .join(", ")
         )
     );
-  }
+  },
 };

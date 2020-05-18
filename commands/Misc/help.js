@@ -9,17 +9,18 @@ module.exports = {
       const embed = new Discord.MessageEmbed()
         .setTimestamp()
         .setColor(client.colors.info)
+        .setFooter(client.commands.size)
         .setAuthor(
           `${message.author.tag} | Help`,
           message.author.displayAvatarURL()
         );
-      Object.keys(client.categories).forEach(category => {
+      Object.keys(client.categories).forEach((category) => {
         const commands = client.commands.filter(
-          command => command.category === category
+          (command) => command.category === category
         );
         embed.addField(
           `**${category}**: ${client.util.pluralify(commands.size, "Command")}`,
-          commands.map(command => `\`${command.name}\``).join(", ")
+          commands.map((command) => `\`${command.name}\``).join(", ")
         );
       });
       return message.channel.send(embed);
@@ -33,11 +34,11 @@ module.exports = {
         );
       if (
         Object.keys(client.categories).some(
-          category => category.toLowerCase() === args[0].toLowerCase()
+          (category) => category.toLowerCase() === args[0].toLowerCase()
         )
       ) {
         const category = Object.keys(client.categories).find(
-          category => category.toLowerCase() === args[0].toLowerCase()
+          (category) => category.toLowerCase() === args[0].toLowerCase()
         );
         embed.setTitle(
           `**${category}**: ${client.util.pluralify(
@@ -47,7 +48,7 @@ module.exports = {
         );
         embed.setDescription(
           client.categories[category]
-            .map(commandName => `\`${commandName}\``)
+            .map((commandName) => `\`${commandName}\``)
             .join(", ")
         );
       } else if (
@@ -63,7 +64,7 @@ module.exports = {
         }
         embed.addField(
           "**Aliases**:",
-          command.aliases.map(alias => `\`${alias}\``).join(", ") || "None"
+          command.aliases.map((alias) => `\`${alias}\``).join(", ") || "None"
         );
         embed.addField(
           "**Usage**:",
@@ -73,9 +74,15 @@ module.exports = {
           )
         );
       } else {
-        embed.setColor(client.colors.error).setDescription(`Invalid command! Try doing \`${client.util.getRandom(client.prefix)}help\` with no arguments to see what the commands are!`);
+        embed
+          .setColor(client.colors.error)
+          .setDescription(
+            `Invalid command! Try doing \`${client.util.getRandom(
+              client.prefix
+            )}help\` with no arguments to see what the commands are!`
+          );
       }
       return message.channel.send(embed);
     }
-  }
+  },
 };

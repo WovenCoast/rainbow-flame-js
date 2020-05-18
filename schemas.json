@@ -1,5 +1,11 @@
 {
   "client": {
+    "cooldown": {
+      "array": false,
+      "type": "string",
+      "default": "",
+      "modifiable": true
+    },
     "commandsExec": {
       "array": false,
       "type": "int",
@@ -54,6 +60,18 @@
       "type": "channel",
       "default": "",
       "modifiable": true
+    },
+    "invalidCommandMsg": {
+      "array": false,
+      "type": "bool",
+      "default": false,
+      "modifiable": true
+    },
+    "rankUpMsg": {
+      "array": false,
+      "type": "bool",
+      "default": true,
+      "modifiable": true
     }
   },
   "user": {
@@ -67,6 +85,16 @@
     "wallet": {
       "type": "int",
       "default": "0",
+      "modifiable": false
+    },
+    "xp": {
+      "type": "int",
+      "default": "0",
+      "modifiable": false
+    },
+    "level": {
+      "type": "int",
+      "default": "1",
       "modifiable": false
     }
   }
