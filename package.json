@@ -15,7 +15,7 @@
     "dotenv": "^8.2.0",
     "ejs": "^3.0.2",
     "endb": "^0.21.7",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-session": "^1.16.1",
     "ffmpeg": "^0.0.4",
     "hastebin-gen": "^2.0.5",
